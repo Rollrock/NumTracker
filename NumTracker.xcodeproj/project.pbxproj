@@ -95,6 +95,7 @@
 		482343DB1A5ABCF1008694CD /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 482343DA1A5ABCF1008694CD /* SystemConfiguration.framework */; };
 		482343DD1A5ABCFA008694CD /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 482343DC1A5ABCFA008694CD /* AudioToolbox.framework */; };
 		482343DF1A5ABD01008694CD /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 482343DE1A5ABD01008694CD /* MessageUI.framework */; };
+		482343E81A5AE8EC008694CD /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 482343E71A5AE8EC008694CD /* AboutViewController.m */; };
 		486AE5F31A52EA72002E75C6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 486AE5F21A52EA72002E75C6 /* main.m */; };
 		486AE5F61A52EA72002E75C6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 486AE5F51A52EA72002E75C6 /* AppDelegate.m */; };
 		486AE5F91A52EA72002E75C6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 486AE5F81A52EA72002E75C6 /* ViewController.m */; };
@@ -218,6 +219,8 @@
 		482343DA1A5ABCF1008694CD /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		482343DC1A5ABCFA008694CD /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		482343DE1A5ABD01008694CD /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		482343E61A5AE8EC008694CD /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		482343E71A5AE8EC008694CD /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		486AE5ED1A52EA72002E75C6 /* NumTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NumTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		486AE5F11A52EA72002E75C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		486AE5F21A52EA72002E75C6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -342,6 +345,8 @@
 				486AE5F01A52EA72002E75C6 /* Supporting Files */,
 				486AE6161A52EB03002E75C6 /* MyImageView.h */,
 				486AE6171A52EB03002E75C6 /* MyImageView.m */,
+				482343E61A5AE8EC008694CD /* AboutViewController.h */,
+				482343E71A5AE8EC008694CD /* AboutViewController.m */,
 			);
 			path = NumTracker;
 			sourceTree = "<group>";
@@ -642,6 +647,7 @@
 				486AE6181A52EB03002E75C6 /* MyImageView.m in Sources */,
 				486AE5F91A52EA72002E75C6 /* ViewController.m in Sources */,
 				480FAC8E1A54358500C41BDA /* JSONKit.m in Sources */,
+				482343E81A5AE8EC008694CD /* AboutViewController.m in Sources */,
 				486AE61B1A52F19D002E75C6 /* dataStruct.m in Sources */,
 				486AE5F61A52EA72002E75C6 /* AppDelegate.m in Sources */,
 				486AE5F31A52EA72002E75C6 /* main.m in Sources */,
