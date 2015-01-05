@@ -11,17 +11,18 @@ typedef enum
     
 }MOVE_ENUM;
 
+#define ADMOB_ID  @"ca-app-pub-3058205099381432/8591538347"
+
+#define IMG_WIDTH  60.0f
 
 
-#define IMG_WIDTH  45.0f
-
-
+/*
 #define ROW_NUM   6
-#define COLUMN_NUM  6
+#define COLUMN_NUM  5
 
-#define X_BEGIN_POS   20.0f
+#define X_BEGIN_POS   0.0f
 #define Y_BEGIN_POS   40.0f
-
+*/
 //////////////////////////////////////////////////////////////////
 @interface ImgViewInfo : NSObject
 

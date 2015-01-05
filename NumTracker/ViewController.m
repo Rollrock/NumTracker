@@ -6,19 +6,27 @@
 //  Copyright (c) 2014年 zhuang chaoxiao. All rights reserved.
 //
 
-
-
-
-
 #import "dataStruct.h"
 #import "ViewController.h"
 #import "MyImageView.h"
 #import "JSONKit.h"
+#import "GADBannerView.h"
 
 @interface ViewController ()<MyImageViewDelegate>
 {
     NSMutableArray * _InfoArray;
     NSMutableArray * _dataArray;
+    
+    GADBannerView * _bannerView;
+    
+    int ROW_NUM;
+    int COLUMN_NUM;
+    
+    CGFloat X_BEGIN_POS;
+    CGFloat Y_BEGIN_POS;
+    
+    CGFloat screen_width;
+    CGFloat screen_heigth;
 }
 
 @end
@@ -86,6 +94,70 @@
             [_InfoArray addObject:info];
         }
     }
+}
+
+-(void)btnClicked:(UIButton*)btn
+{
+    if( 0 == btn.tag )
+    {
+        
+    }
+    else if( 1 == btn.tag )
+    {
+        
+    }
+    else if( 2 == btn.tag )
+    {
+        
+    }
+}
+
+
+-(void)layoutControllers
+{
+    CGRect rect;
+    
+    //
+    {
+        rect = CGRectMake(15, 20, 90, 40);
+        UIButton * btn = [[UIButton alloc]initWithFrame:rect];
+        btn.tag = 0;
+        [btn setTitle:@"关于我们" forState:UIControlStateNormal];
+        btn.layer.cornerRadius = 5;
+        btn.backgroundColor = [UIColor lightGrayColor];
+        btn.layer.masksToBounds = YES;
+        [self.view addSubview:btn];
+        
+        [btn addTarget:self action:@selector(btnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    //
+    {
+        rect = CGRectMake(120, 20, 90, 40);
+        UIButton * btn = [[UIButton alloc]initWithFrame:rect];
+        btn.tag = 1;
+        [btn setTitle:@"微信分享" forState:UIControlStateNormal];
+        btn.layer.cornerRadius = 5;
+        btn.backgroundColor = [UIColor lightGrayColor];
+        btn.layer.masksToBounds = YES;
+        [self.view addSubview:btn];
+        
+        [btn addTarget:self action:@selector(btnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    //
+    {
+        rect = CGRectMake(220, 20, 90, 40);
+        UIButton * btn = [[UIButton alloc]initWithFrame:rect];
+        btn.tag = 2;
+        [btn setTitle:@"重新开始" forState:UIControlStateNormal];
+        btn.layer.cornerRadius = 5;
+        btn.backgroundColor = [UIColor lightGrayColor];
+        btn.layer.masksToBounds = YES;
+        [self.view addSubview:btn];
+        
+        [btn addTarget:self action:@selector(btnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    
+    
     
 }
 
@@ -93,9 +165,39 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
+    {
+        CGRect rect = [[UIScreen mainScreen] bounds];
+        screen_width = rect.size.width;
+        screen_heigth = rect.size.height;
+        
+        
+        if( screen_width == 320 )
+        {
+            // iphone4
+            if( screen_heigth == 480 )
+            {
+                X_BEGIN_POS = 10;
+                Y_BEGIN_POS = 70;
+                
+                ROW_NUM = 5;
+                COLUMN_NUM = 5;
+            }
+            // iphone5
+            else
+            {
+                
+            }
+        }
+    }
+    
+    //
+    [self layoutControllers];
+    //
     [self initTestData];
     
     ///
+    
+    
     
     for( int i = 0; i < ROW_NUM; ++ i)
     {
@@ -131,16 +233,16 @@
             
             MyImageView * imgView = (MyImageView *)[self.view viewWithTag:(i*COLUMN_NUM + j)];
             
-            
             if( info.touchAble )
             {
                 [self.view bringSubviewToFront:imgView];
             }
         }
     }
-
     
     ///
+    [self laytouADVView];
+    //
     
     self.view.backgroundColor = [UIColor whiteColor];
 }
@@ -252,8 +354,6 @@
                 sum -= num;
                 NSLog(@"sun:%d",sum);
                 
-                //[[self.view viewWithTag:tag-COLUMN_NUM] removeFromSuperview];
-                
                 ((UIImageView*)[self.view viewWithTag:tag-COLUMN_NUM]).image = [UIImage imageNamed:@"empty"];
                 
                 CGPoint pt = imgView.center;
@@ -308,6 +408,61 @@
     
     [layer addAnimation:group forKey:@""];
 }
+
+
+-(void)laytouADVView
+{
+    CGRect rect = [[UIScreen mainScreen]bounds];
+    CGPoint pt ;
+    
+    
+    if( screen_width == 320 && screen_heigth == 480 )
+    {
+        pt = CGPointMake(0, rect.origin.y+rect.size.height-kGADAdSizeLargeBanner.size.height-1);
+        _bannerView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeLargeBanner origin:pt];
+    }
+    
+    /*
+    if( rect.size.height >= 667 )
+    {
+        pt = CGPointMake(0, rect.origin.y+rect.size.height-kGADAdSizeMediumRectangle.size.height+20);
+        _bannerView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeMediumRectangle origin:pt];
+        
+    }
+    else if( rect.size.height >= 568 )
+    {
+        pt = CGPointMake(0, rect.origin.y+rect.size.height-kGADAdSizeMediumRectangle.size.height+60);
+        _bannerView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeMediumRectangle origin:pt];
+    }
+    else
+    {
+        pt = CGPointMake(0, rect.origin.y+rect.size.height-kGADAdSizeBanner.size.height-1);
+        _bannerView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeBanner origin:pt];
+    }
+    */
+    
+    
+    NSLog(@"rect:%f-%f",rect.size.height,rect.size.width);
+    
+    
+    
+    _bannerView.adUnitID = ADMOB_ID;//调用你的id
+    
+    _bannerView.rootViewController = self;
+    
+    [_bannerView loadRequest:[GADRequest request]];
+    
+    
+    if( rect.size.height >= 568 )
+    {
+        pt = _bannerView.center;
+        _bannerView.center = CGPointMake([[UIScreen mainScreen] bounds].size.width/2, pt.y);
+    }
+    
+    [self.view addSubview:_bannerView];
+    
+}
+
 
 
 - (void)didReceiveMemoryWarning {
