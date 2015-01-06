@@ -96,6 +96,7 @@
 		482343DD1A5ABCFA008694CD /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 482343DC1A5ABCFA008694CD /* AudioToolbox.framework */; };
 		482343DF1A5ABD01008694CD /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 482343DE1A5ABD01008694CD /* MessageUI.framework */; };
 		482343E81A5AE8EC008694CD /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 482343E71A5AE8EC008694CD /* AboutViewController.m */; };
+		482343F91A5C3264008694CD /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 482343F61A5C3264008694CD /* libWeChatSDK.a */; };
 		486AE5F31A52EA72002E75C6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 486AE5F21A52EA72002E75C6 /* main.m */; };
 		486AE5F61A52EA72002E75C6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 486AE5F51A52EA72002E75C6 /* AppDelegate.m */; };
 		486AE5F91A52EA72002E75C6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 486AE5F81A52EA72002E75C6 /* ViewController.m */; };
@@ -221,6 +222,9 @@
 		482343DE1A5ABD01008694CD /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		482343E61A5AE8EC008694CD /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		482343E71A5AE8EC008694CD /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		482343F61A5C3264008694CD /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		482343F71A5C3264008694CD /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
+		482343F81A5C3264008694CD /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		486AE5ED1A52EA72002E75C6 /* NumTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NumTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		486AE5F11A52EA72002E75C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		486AE5F21A52EA72002E75C6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -245,6 +249,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				482343F91A5C3264008694CD /* libWeChatSDK.a in Frameworks */,
 				482343DF1A5ABD01008694CD /* MessageUI.framework in Frameworks */,
 				482343DD1A5ABCFA008694CD /* AudioToolbox.framework in Frameworks */,
 				482343DB1A5ABCF1008694CD /* SystemConfiguration.framework in Frameworks */,
@@ -298,6 +303,16 @@
 				482343C61A5ABC50008694CD /* libGoogleAdMobAds.a */,
 			);
 			path = admob;
+			sourceTree = "<group>";
+		};
+		482343F51A5C3264008694CD /* WeChatSDK */ = {
+			isa = PBXGroup;
+			children = (
+				482343F61A5C3264008694CD /* libWeChatSDK.a */,
+				482343F71A5C3264008694CD /* WXApi.h */,
+				482343F81A5C3264008694CD /* WXApiObject.h */,
+			);
+			path = WeChatSDK;
 			sourceTree = "<group>";
 		};
 		486AE5E41A52EA72002E75C6 = {
@@ -354,6 +369,7 @@
 		486AE5F01A52EA72002E75C6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				482343F51A5C3264008694CD /* WeChatSDK */,
 				482343B91A5ABC50008694CD /* admob */,
 				480FAC8B1A54358500C41BDA /* JSONKit */,
 				486AE61C1A52F6C3002E75C6 /* Resource */,
@@ -779,6 +795,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/NumTracker/admob",
+					"$(PROJECT_DIR)/NumTracker/WeChatSDK",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -796,6 +813,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/NumTracker/admob",
+					"$(PROJECT_DIR)/NumTracker/WeChatSDK",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";

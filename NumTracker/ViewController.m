@@ -11,6 +11,7 @@
 #import "MyImageView.h"
 #import "JSONKit.h"
 #import "GADBannerView.h"
+#import "AppDelegate.h"
 
 @interface ViewController ()<MyImageViewDelegate>
 {
@@ -105,6 +106,9 @@
     else if( 1 == btn.tag )
     {
         
+        AppDelegate * appDel = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+        
+        [appDel shareWithTextUrl];
     }
     else if( 2 == btn.tag )
     {
@@ -221,6 +225,17 @@
             {
                 [self.view addSubview:imgView];
             }
+            
+            
+            dispatch_async(dispatch_get_global_queue(0, 0), ^(void){
+
+                dispatch_async(dispatch_get_main_queue(), ^(void){
+                    
+                    
+                    //[UIView animateKeyframesWithDuration:1 delay:0 options:<#(UIViewKeyframeAnimationOptions)#> animations:<#^(void)animations#> completion:<#^(BOOL finished)completion#>]
+                    
+                });
+            });
         }
     }
     

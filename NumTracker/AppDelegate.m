@@ -17,8 +17,124 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    //
+    [WXApi registerApp:@"wx8ae0a52d0b488e34"];
+    
     return YES;
 }
+
+
+-(BOOL)application:(UIApplication*)application handleOpenURL:(NSURL *)url
+{
+    return [WXApi handleOpenURL:url delegate:self];
+}
+
+-(BOOL)application:(UIApplication*)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    return [WXApi handleOpenURL:url delegate:self];
+}
+
+
+-(void) onReq:(BaseReq*)req
+{
+    if([req isKindOfClass:[ShowMessageFromWXReq class]])
+    {
+        ShowMessageFromWXReq* temp = (ShowMessageFromWXReq*)req;
+        WXMediaMessage *msg = temp.message;
+        
+        //显示微信传过来的内容
+        WXAppExtendObject *obj = msg.mediaObject;
+        
+        //NSString *strMsg = [NSString stringWithFormat:@"标题：%@ \n内容：%@ \n附带信息：%@ \n缩略图:%u bytes\n\n", msg.title, msg.description, obj.extInfo, msg.thumbData.length];
+        
+        // NSLog(@"strMsg:%@",strMsg);
+        
+    }
+}
+
+-(void) onResp:(BaseResp*)resp
+{
+    if([resp isKindOfClass:[SendMessageToWXResp class]])
+    {
+        NSString *strMsg = [NSString stringWithFormat:@"errcode:%d", resp.errCode];
+        
+        NSLog(@"strMsg:%@",strMsg);
+        
+        
+        if( resp.errCode == 0 )
+        {
+            //发送成功
+        }
+        else if( resp.errCode == -2 )
+        {
+            //主动取消
+        }
+    }
+}
+
+
+-(BOOL)isWeChatValid
+{
+    if( [WXApi isWXAppInstalled] && [WXApi isWXAppSupportApi] )
+    {
+        return  YES;
+    }
+    
+    return NO;
+}
+
+-(void) shareWithTextUrl
+{
+    
+    if( ![self isWeChatValid ] )
+    {
+        UIAlertView * alterView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您的手机没有安装微信，无法使用此功能~" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alterView show];
+        
+        return;
+    }
+    
+    WXMediaMessage *message = [WXMediaMessage message];
+    message.title = @"数字轨迹，超经典游戏，全民疯玩~";
+    [message setThumbImage:[UIImage imageNamed:@"res2.png"]];
+    
+    WXWebpageObject *ext = [WXWebpageObject object];
+    ext.webpageUrl = @"https://itunes.apple.com/cn/app/shang-hai-lu-you-gong-e-zhi/id804556227?mt=8";
+    
+    message.mediaObject = ext;
+    
+    SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
+    req.bText = NO;
+    req.message = message;
+    req.scene = WXSceneTimeline;
+    
+    [WXApi sendReq:req];
+}
+
+- (void)shareWithImage
+{
+    WXMediaMessage *message = [WXMediaMessage message];
+    [message setThumbImage:[UIImage imageNamed:@"weixin_share"]];
+    
+    WXImageObject *ext = [WXImageObject object];
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"weixin_share" ofType:@"png"];
+    NSLog(@"filepath :%@",filePath);
+    ext.imageData = [NSData dataWithContentsOfFile:filePath];
+    
+    UIImage* image = [UIImage imageWithData:ext.imageData];
+    ext.imageData = UIImagePNGRepresentation(image);
+    
+    message.mediaObject = ext;
+    
+    SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
+    req.bText = NO;
+    req.message = message;
+    req.scene = WXSceneTimeline;
+    
+    [WXApi sendReq:req];
+}
+
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

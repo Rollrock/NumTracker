@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "WXApi.h"
 
 
 
@@ -18,6 +18,10 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
+
+
+-(void) shareWithTextUrl;
+-(BOOL)isWeChatValid;
 
 @end
 
