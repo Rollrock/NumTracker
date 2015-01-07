@@ -12,11 +12,15 @@
 #import "JSONKit.h"
 #import "GADBannerView.h"
 #import "AppDelegate.h"
+#import "AboutViewController.h"
+
+#define IMG_TAB_BEG   10086
 
 @interface ViewController ()<MyImageViewDelegate>
 {
     NSMutableArray * _InfoArray;
     NSMutableArray * _dataArray;
+    NSMutableArray * _backUpArray;
     
     GADBannerView * _bannerView;
     
@@ -35,10 +39,22 @@
 @implementation ViewController
 
 
--(void)initTestData
+-(void)initGame
 {
+    
+    [_InfoArray removeAllObjects];
+    _InfoArray = nil;
+    
+    [_dataArray removeAllObjects];
+    _dataArray = nil;
+    
+    [_backUpArray removeAllObjects];
+    _backUpArray = nil;
+    
+    
     _InfoArray = [[NSMutableArray alloc]init];
     _dataArray = [[NSMutableArray alloc]init];
+    _backUpArray = [[NSMutableArray alloc]init];
     
     //
     
@@ -61,6 +77,8 @@
                 {
                     NSString * str = [subDict objectForKey:@"value"];
                     [_dataArray addObject:str];
+                    //
+                    [_backUpArray addObject:str];
                 }
             }
         }
@@ -95,27 +113,87 @@
             [_InfoArray addObject:info];
         }
     }
+    
+    //
+    
+    
+    for( int i = 0; i < ROW_NUM; ++ i)
+    {
+        for( int j = 0; j < COLUMN_NUM; ++ j )
+        {
+            ImgViewInfo * info = (ImgViewInfo *)[_InfoArray objectAtIndex:i*COLUMN_NUM+j];
+            
+            MyImageView * imgView = [[MyImageView alloc]initWithImgViewInfo:info];
+            imgView.frame = CGRectMake(X_BEGIN_POS+j*IMG_WIDTH,Y_BEGIN_POS+i*IMG_WIDTH, IMG_WIDTH, IMG_WIDTH);
+            imgView.tag = i*COLUMN_NUM + j+IMG_TAB_BEG;
+            
+            NSLog(@"tag:%d",imgView.tag);
+            
+            
+            if( info.touchAble )
+            {
+                imgView.deletage = self;
+                
+                [self.view addSubview:imgView];
+                
+            }
+            else
+            {
+                [self.view addSubview:imgView];
+            }
+        }
+    }
+    
+    //
+    for( int i = 0; i < ROW_NUM; ++ i)
+    {
+        for( int j = 0; j < COLUMN_NUM; ++ j )
+        {
+            ImgViewInfo * info = (ImgViewInfo *)[_InfoArray objectAtIndex:i*COLUMN_NUM+j];
+            
+            MyImageView * imgView = (MyImageView *)[self.view viewWithTag:(i*COLUMN_NUM + j+IMG_TAB_BEG)];
+            
+            if( info.touchAble )
+            {
+                [self.view bringSubviewToFront:imgView];
+            }
+        }
+    }
+
 }
 
 -(void)btnClicked:(UIButton*)btn
 {
     if( 0 == btn.tag )
     {
-        
+        AboutViewController * vc = [[AboutViewController alloc]init];
+        [self presentViewController:vc animated:YES completion:nil];
     }
     else if( 1 == btn.tag )
     {
-        
         AppDelegate * appDel = (AppDelegate*)[[UIApplication sharedApplication] delegate];
         
         [appDel shareWithTextUrl];
     }
     else if( 2 == btn.tag )
     {
-        
+        [self reStartGame];
     }
 }
 
+
+-(void)reStartGame
+{
+    for( UIView * subView in [self.view subviews] )
+    {
+        if( subView.tag >= IMG_TAB_BEG )
+        {
+            [subView removeFromSuperview];
+        }
+    }
+    
+    [self initGame];
+}
 
 -(void)layoutControllers
 {
@@ -160,9 +238,6 @@
         
         [btn addTarget:self action:@selector(btnClicked:) forControlEvents:UIControlEventTouchUpInside];
     }
-    
-    
-    
 }
 
 - (void)viewDidLoad {
@@ -173,7 +248,6 @@
         CGRect rect = [[UIScreen mainScreen] bounds];
         screen_width = rect.size.width;
         screen_heigth = rect.size.height;
-        
         
         if( screen_width == 320 )
         {
@@ -189,72 +263,35 @@
             // iphone5
             else
             {
+                X_BEGIN_POS = 10;
+                Y_BEGIN_POS = 70;
                 
+                ROW_NUM = 6;
+                COLUMN_NUM = 5;
             }
+        }
+        //  6
+        else if( screen_width == 750/2)
+        {
+            X_BEGIN_POS = 5;
+            Y_BEGIN_POS = 70;
+            
+            ROW_NUM = 7;
+            COLUMN_NUM = 6;
+        }
+        // 6p
+        else if( screen_width == 1 )
+        {
+            
         }
     }
     
     //
     [self layoutControllers];
     //
-    [self initTestData];
+    [self initGame];
     
     ///
-    
-    
-    
-    for( int i = 0; i < ROW_NUM; ++ i)
-    {
-        for( int j = 0; j < COLUMN_NUM; ++ j )
-        {
-            ImgViewInfo * info = (ImgViewInfo *)[_InfoArray objectAtIndex:i*COLUMN_NUM+j];
-            
-            MyImageView * imgView = [[MyImageView alloc]initWithImgViewInfo:info];
-            imgView.frame = CGRectMake(X_BEGIN_POS+j*IMG_WIDTH,Y_BEGIN_POS+i*IMG_WIDTH, IMG_WIDTH, IMG_WIDTH);
-            imgView.tag = i*COLUMN_NUM + j;
-            
-            
-            if( info.touchAble )
-            {
-                imgView.deletage = self;
-                
-                [self.view addSubview:imgView];
-                
-            }
-            else
-            {
-                [self.view addSubview:imgView];
-            }
-            
-            
-            dispatch_async(dispatch_get_global_queue(0, 0), ^(void){
-
-                dispatch_async(dispatch_get_main_queue(), ^(void){
-                    
-                    
-                    //[UIView animateKeyframesWithDuration:1 delay:0 options:<#(UIViewKeyframeAnimationOptions)#> animations:<#^(void)animations#> completion:<#^(BOOL finished)completion#>]
-                    
-                });
-            });
-        }
-    }
-    
-    //
-    for( int i = 0; i < ROW_NUM; ++ i)
-    {
-        for( int j = 0; j < COLUMN_NUM; ++ j )
-        {
-            ImgViewInfo * info = (ImgViewInfo *)[_InfoArray objectAtIndex:i*COLUMN_NUM+j];
-            
-            MyImageView * imgView = (MyImageView *)[self.view viewWithTag:(i*COLUMN_NUM + j)];
-            
-            if( info.touchAble )
-            {
-                [self.view bringSubviewToFront:imgView];
-            }
-        }
-    }
-    
     ///
     [self laytouADVView];
     //
@@ -265,16 +302,14 @@
 
 -(void)MoveImageView:(UIImageView*)imgView withDir:(MOVE_ENUM)move
 {
-    NSLog(@"MoveImageView");
-    
-    int tag = imgView.tag;
+    int tag = imgView.tag-IMG_TAB_BEG;
     int sum = [[_dataArray objectAtIndex:tag] intValue]-1000;
     int row,column;
     
     row = tag/COLUMN_NUM;
     column = tag%COLUMN_NUM;
     
-    NSLog(@"row:%d column:%d==tag:%d",row,column,tag);
+    NSLog(@"row:%d column:%d tag:%d",row,column,tag);
     
     //往右
     if( MOVE_RIGHT == move)
@@ -290,12 +325,20 @@
                 
                 //[[self.view viewWithTag:tag+1] removeFromSuperview];
                 
-                ((UIImageView*)[self.view viewWithTag:tag+1]).image = [UIImage imageNamed:@"empty"];
+                ((UIImageView*)[self.view viewWithTag:tag+1+IMG_TAB_BEG]).image = [UIImage imageNamed:@"empty"];
                 
                 CGPoint pt = imgView.center;
                 imgView.center = CGPointMake(pt.x+IMG_WIDTH, pt.y);
-                imgView.tag = tag+1;
-                imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"move_%d",sum]];
+                imgView.tag = tag+1+IMG_TAB_BEG;
+                if( sum >= 0 )
+                {
+                    imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"move_%d",sum]];
+                }
+                else
+                {
+                    imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"d_move_%d",abs(sum)]];
+                }
+
                 
                 [_dataArray replaceObjectAtIndex:tag withObject:@"-999"];
                 [_dataArray replaceObjectAtIndex:tag+1 withObject:[NSString stringWithFormat:@"%d",sum+1000]];
@@ -317,12 +360,20 @@
                 
                 //[[self.view viewWithTag:tag+COLUMN_NUM] removeFromSuperview];
                 
-                ((UIImageView*)[self.view viewWithTag:tag+COLUMN_NUM]).image = [UIImage imageNamed:@"empty"];
+                ((UIImageView*)[self.view viewWithTag:tag+COLUMN_NUM+IMG_TAB_BEG]).image = [UIImage imageNamed:@"empty"];
                 
                 CGPoint pt = imgView.center;
                 imgView.center = CGPointMake(pt.x, pt.y+IMG_WIDTH);
-                imgView.tag = tag+COLUMN_NUM;
-                imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"move_%d",sum]];
+                imgView.tag = tag+COLUMN_NUM+IMG_TAB_BEG;
+                if( sum >= 0 )
+                {
+                    imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"move_%d",sum]];
+                }
+                else
+                {
+                    imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"d_move_%d",abs(sum)]];
+                }
+
                 
                 [_dataArray replaceObjectAtIndex:tag withObject:@"-999"];
                 [_dataArray replaceObjectAtIndex:tag+COLUMN_NUM withObject:[NSString stringWithFormat:@"%d",sum+1000]];
@@ -344,12 +395,21 @@
                 
                 //[[self.view viewWithTag:tag-1] removeFromSuperview];
                 
-                ((UIImageView*)[self.view viewWithTag:tag-1]).image = [UIImage imageNamed:@"empty"];
+                ((UIImageView*)[self.view viewWithTag:tag-1+IMG_TAB_BEG]).image = [UIImage imageNamed:@"empty"];
                 
                 CGPoint pt = imgView.center;
                 imgView.center = CGPointMake(pt.x-IMG_WIDTH, pt.y);
-                imgView.tag = tag-1;
-                imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"move_%d",sum]];
+                imgView.tag = tag-1+IMG_TAB_BEG;
+                
+                if( sum >= 0 )
+                {
+                    imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"move_%d",sum]];
+                }
+                else
+                {
+                    imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"d_move_%d",abs(sum)]];
+                }
+                
                 
                 [_dataArray replaceObjectAtIndex:tag withObject:@"-999"];
                 [_dataArray replaceObjectAtIndex:tag-1 withObject:[NSString stringWithFormat:@"%d",sum+1000]];
@@ -369,12 +429,20 @@
                 sum -= num;
                 NSLog(@"sun:%d",sum);
                 
-                ((UIImageView*)[self.view viewWithTag:tag-COLUMN_NUM]).image = [UIImage imageNamed:@"empty"];
+                ((UIImageView*)[self.view viewWithTag:tag-COLUMN_NUM+IMG_TAB_BEG]).image = [UIImage imageNamed:@"empty"];
                 
                 CGPoint pt = imgView.center;
                 imgView.center = CGPointMake(pt.x, pt.y-IMG_WIDTH);
-                imgView.tag = tag-COLUMN_NUM;
-                imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"move_%d",sum]];
+                imgView.tag = tag-COLUMN_NUM+IMG_TAB_BEG;
+                if( sum >= 0 )
+                {
+                    imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"move_%d",sum]];
+                }
+                else
+                {
+                    imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"d_move_%d",abs(sum)]];
+                }
+
                 
                 [_dataArray replaceObjectAtIndex:tag withObject:@"-999"];
                 [_dataArray replaceObjectAtIndex:tag-COLUMN_NUM withObject:[NSString stringWithFormat:@"%d",sum+1000]];
@@ -383,8 +451,6 @@
             }
         }
     }
-
-    
 }
 
 -(void)clicked:(CGPoint)pt
@@ -401,7 +467,7 @@
     
     CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
     scaleAnimation.fromValue = [NSValue valueWithCATransform3D:CATransform3DIdentity];
-    scaleAnimation.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(2.5, 2.5, 1)];
+    scaleAnimation.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(2.0, 2.0, 1)];
     scaleAnimation.removedOnCompletion = NO;
     scaleAnimation.fillMode = kCAFillModeForwards;
     
@@ -431,36 +497,27 @@
     CGPoint pt ;
     
     
+    
+    
+    
+    /*
+    
     if( screen_width == 320 && screen_heigth == 480 )
     {
         pt = CGPointMake(0, rect.origin.y+rect.size.height-kGADAdSizeLargeBanner.size.height-1);
         _bannerView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeLargeBanner origin:pt];
     }
-    
-    /*
-    if( rect.size.height >= 667 )
+    else if( screen_width == 320 && screen_heigth == 1136/2)
     {
-        pt = CGPointMake(0, rect.origin.y+rect.size.height-kGADAdSizeMediumRectangle.size.height+20);
-        _bannerView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeMediumRectangle origin:pt];
-        
+        pt = CGPointMake(0, rect.origin.y+rect.size.height-kGADAdSizeLargeBanner.size.height-1);
+        _bannerView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeLargeBanner origin:pt];
     }
-    else if( rect.size.height >= 568 )
+    else if( screen_width == 750/2 && screen_heigth == 1334/2 )
     {
-        pt = CGPointMake(0, rect.origin.y+rect.size.height-kGADAdSizeMediumRectangle.size.height+60);
-        _bannerView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeMediumRectangle origin:pt];
+        pt = CGPointMake(0, rect.origin.y+rect.size.height-kGADAdSizeLargeBanner.size.height-1);
+        _bannerView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeLargeBanner origin:pt];
     }
-    else
-    {
-        pt = CGPointMake(0, rect.origin.y+rect.size.height-kGADAdSizeBanner.size.height-1);
-        _bannerView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeBanner origin:pt];
-    }
-    */
-    
-    
-    NSLog(@"rect:%f-%f",rect.size.height,rect.size.width);
-    
-    
-    
+
     _bannerView.adUnitID = ADMOB_ID;//调用你的id
     
     _bannerView.rootViewController = self;
@@ -475,7 +532,7 @@
     }
     
     [self.view addSubview:_bannerView];
-    
+    */
 }
 
 
