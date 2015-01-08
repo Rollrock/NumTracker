@@ -1,156 +1,156 @@
 {
 "data": [
 {
-"value": "1"
-},
-{
-"value": "504"
-},
-{
-"value": "1"
-},
-{
 "value": "1007"
 },
 {
-"value": "1"
+"value": "4"
 },
 {
-"value": "2"
-},
-
-
-{
-"value": "503"
+"value": "-999"
 },
 {
-"value": "1008"
+"value": "-999"
 },
 {
-"value": "1"
+"value": "-999"
 },
 {
-"value": "1"
-},
-{
-"value": "1015"
-},
-{
-"value": "1"
+"value": "-999"
 },
 
 
 {
-"value": "1"
+"value": "3"
 },
 {
-"value": "1"
+"value": "-999"
 },
 {
-"value": "501"
+"value": "-999"
 },
 {
-"value": "1"
+"value": "-999"
 },
 {
-"value": "1"
+"value": "-999"
 },
 {
-"value": "1005"
-},
-
-
-{
-"value": "1"
-},
-{
-"value": "1"
-},
-{
-"value": "1"
-},
-{
-"value": "1"
-},
-{
-"value": "1"
-},
-{
-"value": "1"
+"value": "-999"
 },
 
 
 {
-"value": "1"
+"value": "-999"
 },
 {
-"value": "1"
+"value": "-999"
 },
 {
-"value": "1"
+"value": "-999"
 },
 {
-"value": "1"
+"value": "-999"
 },
 {
-"value": "1"
+"value": "-999"
 },
 {
-"value": "1"
+"value": "-999"
+},
+
+
+{
+"value": "-999"
 },
 {
-"value": "1"
+"value": "-999"
 },
 {
-"value": "1"
+"value": "-999"
 },
 {
-"value": "1"
+"value": "-999"
 },
 {
-"value": "1"
+"value": "-999"
 },
 {
-"value": "1"
+"value": "-999"
+},
+
+
+{
+"value": "-999"
 },
 {
-"value": "1"
+"value": "-999"
 },
 {
-"value": "1"
+"value": "-999"
 },
 {
-"value": "1"
+"value": "-999"
 },
 {
-"value": "1"
+"value": "-999"
 },
 {
-"value": "1"
+"value": "-999"
 },
 {
-"value": "1"
+"value": "-999"
 },
 {
-"value": "1"
+"value": "-999"
 },
 {
-"value": "1"
+"value": "-999"
 },
 {
-"value": "1"
+"value": "-999"
 },
 {
-"value": "1"
+"value": "-999"
 },
 {
-"value": "1"
+"value": "-999"
 },
 {
-"value": "1"
+"value": "-999"
 },
 {
-"value": "1"
+"value": "-999"
+},
+{
+"value": "-999"
+},
+{
+"value": "-999"
+},
+{
+"value": "-999"
+},
+{
+"value": "-999"
+},
+{
+"value": "-999"
+},
+{
+"value": "-999"
+},
+{
+"value": "-999"
+},
+{
+"value": "-999"
+},
+{
+"value": "-999"
+},
+{
+"value": "-999"
 }
 ]
 }

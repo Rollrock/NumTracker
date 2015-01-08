@@ -13,6 +13,8 @@
 #import "GADBannerView.h"
 #import "AppDelegate.h"
 #import "AboutViewController.h"
+#import "BaiduMobAdView.h"
+#import "BaiduMobAdDelegateProtocol.h"
 
 
 /*
@@ -27,7 +29,7 @@
 
 #define PASS_STORE_KEY  @"pass_store"
 
-@interface ViewController ()<MyImageViewDelegate>
+@interface ViewController ()<MyImageViewDelegate,BaiduMobAdViewDelegate>
 {
     NSMutableArray * _InfoArray;
     
@@ -37,6 +39,7 @@
     //NSMutableArray * _backUpSpArray;
     
     GADBannerView * _bannerView;
+    BaiduMobAdView * _baiduView;
     
     int ROW_NUM;
     int COLUMN_NUM;
@@ -68,11 +71,16 @@
     {
         NSString * str = [_dataArray objectAtIndex:i];
         
+        NSLog(@"str:%@",str);
+        
         if( ![str isEqualToString:@"-999"] )
         {
             return NO;
         }
     }
+    
+    
+    NSLog(@"GameSuccess");
     
     return YES;
 }
@@ -673,6 +681,19 @@
 }
 
 
+- (NSString *)publisherId
+{
+    return @"bf498248";
+}
+
+/**
+ *  应用在union.baidu.com上的APPID
+ */
+- (NSString*) appSpec
+{
+    return @"bf498248";
+}
+
 -(void)laytouADVView
 {
     CGRect rect = [[UIScreen mainScreen]bounds];
@@ -680,6 +701,12 @@
     
     
     
+    _baiduView = [[BaiduMobAdView alloc]init];
+    _baiduView.AdType = BaiduMobAdViewTypeBanner;
+    _baiduView.frame = CGRectMake(0, rect.origin.y+rect.size.height-kBaiduAdViewSizeDefaultHeight, kBaiduAdViewSizeDefaultWidth, kBaiduAdViewSizeDefaultHeight);
+    _baiduView.delegate = self;
+    [self.view addSubview:_baiduView];
+    [_baiduView start];
     
     
     /*
