@@ -9,12 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "dataStruct.h"
 
+@class MyImageView;
 
 @protocol MyImageViewDelegate <NSObject>
 
 @optional
 
--(void)MoveImageView:(UIImageView*)imgView withDir:(MOVE_ENUM)move;
+-(void)MoveImageView:(MyImageView*)imgView withDir:(MOVE_ENUM)move;
 
 @end
 
@@ -24,6 +25,7 @@
 }
 
 @property(nonatomic,weak) id deletage;
+@property(nonatomic,assign) BOOL bTouch;
 
 //
 -(id)initWithImgViewInfo:(ImgViewInfo*)info;

@@ -44,10 +44,16 @@
     
     _beganPT = pt;
     _center = self.center;
+    
+    _bTouch = YES;
 }
 
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    if( !_bTouch )
+    {
+        return;
+    }
     
     CGPoint pt = [[touches anyObject]locationInView:self.superview];
     

@@ -331,7 +331,7 @@
 }
 
 
--(void)MoveImageView:(UIImageView*)imgView withDir:(MOVE_ENUM)move
+-(void)MoveImageView:(MyImageView*)imgView withDir:(MOVE_ENUM)move
 {
     int tag = imgView.tag-IMG_TAB_BEG;
     int sum = [[_dataArray objectAtIndex:tag] intValue]-1000;
@@ -354,8 +354,7 @@
                 sum -= num;
                 NSLog(@"sun:%d",sum);
                 
-                //[[self.view viewWithTag:tag+1] removeFromSuperview];
-                
+            
                 ((UIImageView*)[self.view viewWithTag:tag+1+IMG_TAB_BEG]).image = [UIImage imageNamed:@"empty"];
                 
                 CGPoint pt = imgView.center;
@@ -375,6 +374,8 @@
                     [_dataArray replaceObjectAtIndex:tag+1 withObject:[NSString stringWithFormat:@"%d",-999]];
                     imgView.image = [UIImage imageNamed:@"success"];
                     imgView.userInteractionEnabled = NO;
+                    
+                    imgView.bTouch = NO;
                 }
                 else
                 {
@@ -397,8 +398,7 @@
                 sum -= num;
                 NSLog(@"sun:%d",sum);
                 
-                //[[self.view viewWithTag:tag+COLUMN_NUM] removeFromSuperview];
-                
+               
                 ((UIImageView*)[self.view viewWithTag:tag+COLUMN_NUM+IMG_TAB_BEG]).image = [UIImage imageNamed:@"empty"];
                 
                 CGPoint pt = imgView.center;
@@ -418,6 +418,8 @@
                     [_dataArray replaceObjectAtIndex:tag+COLUMN_NUM withObject:[NSString stringWithFormat:@"%d",-999]];
                     imgView.image = [UIImage imageNamed:@"success"];
                     imgView.userInteractionEnabled = NO;
+                    
+                    imgView.bTouch = NO;
                 }
                 else
                 {
@@ -440,13 +442,14 @@
                 sum -= num;
                 NSLog(@"sun:%d",sum);
                 
-                //[[self.view viewWithTag:tag-1] removeFromSuperview];
-                
                 ((UIImageView*)[self.view viewWithTag:tag-1+IMG_TAB_BEG]).image = [UIImage imageNamed:@"empty"];
                 
                 CGPoint pt = imgView.center;
                 imgView.center = CGPointMake(pt.x-IMG_WIDTH, pt.y);
                 imgView.tag = tag-1+IMG_TAB_BEG;
+                
+                [_dataArray replaceObjectAtIndex:tag withObject:@"-999"];
+                [_dataArray replaceObjectAtIndex:tag-1 withObject:[NSString stringWithFormat:@"%d",sum+1000]];
                 
                 if( sum > 0 )
                 {
@@ -454,16 +457,16 @@
                 }
                 else if( sum == 0 )
                 {
+                    [_dataArray replaceObjectAtIndex:tag-1 withObject:[NSString stringWithFormat:@"%d",-999]];
+                    imgView.image = [UIImage imageNamed:@"success"];
+                    imgView.userInteractionEnabled = NO;
                     
+                    imgView.bTouch = NO;
                 }
                 else
                 {
                     imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"d_move_%d",abs(sum)]];
                 }
-                
-                
-                [_dataArray replaceObjectAtIndex:tag withObject:@"-999"];
-                [_dataArray replaceObjectAtIndex:tag-1 withObject:[NSString stringWithFormat:@"%d",sum+1000]];
                 
                 [self clicked:imgView.center];
             }
@@ -485,23 +488,27 @@
                 CGPoint pt = imgView.center;
                 imgView.center = CGPointMake(pt.x, pt.y-IMG_WIDTH);
                 imgView.tag = tag-COLUMN_NUM+IMG_TAB_BEG;
+                
+                [_dataArray replaceObjectAtIndex:tag withObject:@"-999"];
+                [_dataArray replaceObjectAtIndex:tag-COLUMN_NUM withObject:[NSString stringWithFormat:@"%d",sum+1000]];
+
                 if( sum > 0 )
                 {
                     imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"move_%d",sum]];
                 }
                 else if( sum == 0 )
                 {
+                    [_dataArray replaceObjectAtIndex:tag-COLUMN_NUM withObject:[NSString stringWithFormat:@"%d",-999]];
+                    imgView.image = [UIImage imageNamed:@"success"];
+                    imgView.userInteractionEnabled = NO;
                     
+                    imgView.bTouch = NO;
                 }
                 else
                 {
                     imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"d_move_%d",abs(sum)]];
                 }
 
-                
-                [_dataArray replaceObjectAtIndex:tag withObject:@"-999"];
-                [_dataArray replaceObjectAtIndex:tag-COLUMN_NUM withObject:[NSString stringWithFormat:@"%d",sum+1000]];
-                
                 [self clicked:imgView.center];
             }
         }
