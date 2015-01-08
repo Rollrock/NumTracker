@@ -16,6 +16,8 @@
 
 #define IMG_TAB_BEG   10086
 
+#define PASS_STORE_KEY  @"pass_store"
+
 @interface ViewController ()<MyImageViewDelegate>
 {
     NSMutableArray * _InfoArray;
@@ -39,6 +41,30 @@
 @implementation ViewController
 
 
+-(NSString*)getCurPass
+{
+    NSUserDefaults * def = [NSUserDefaults standardUserDefaults];
+    
+    NSInteger val = [def integerForKey:PASS_STORE_KEY];
+    
+    return [NSString stringWithFormat:@"%d",val];
+}
+
+-(BOOL)isGameSuccess
+{
+    for( int i = 0; i < [_dataArray count]; ++ i )
+    {
+        NSString * str = [_dataArray objectAtIndex:i];
+        
+        if( ![str isEqualToString:@"-999"] )
+        {
+            return NO;
+        }
+    }
+    
+    return YES;
+}
+
 -(void)initGame
 {
     
@@ -57,8 +83,13 @@
     _backUpArray = [[NSMutableArray alloc]init];
     
     //
+    NSString * strPass = nil;
+    if( screen_width == 320 && screen_heigth == 480 )
+    {
+        strPass = [NSString stringWithFormat:@"4s_%@.txt",[self getCurPass]];
+    }
     
-    NSString * filePath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"data.txt"];
+    NSString * filePath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:strPass];
     NSString * strText = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
     
     NSLog(@"strText:%@",strText);
@@ -330,18 +361,26 @@
                 CGPoint pt = imgView.center;
                 imgView.center = CGPointMake(pt.x+IMG_WIDTH, pt.y);
                 imgView.tag = tag+1+IMG_TAB_BEG;
-                if( sum >= 0 )
+                
+                [_dataArray replaceObjectAtIndex:tag withObject:@"-999"];
+                [_dataArray replaceObjectAtIndex:tag+1 withObject:[NSString stringWithFormat:@"%d",sum+1000]];
+                
+                
+                if( sum > 0 )
                 {
                     imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"move_%d",sum]];
+                }
+                else if( sum == 0 )
+                {
+                    [_dataArray replaceObjectAtIndex:tag+1 withObject:[NSString stringWithFormat:@"%d",-999]];
+                    imgView.image = [UIImage imageNamed:@"success"];
+                    imgView.userInteractionEnabled = NO;
                 }
                 else
                 {
                     imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"d_move_%d",abs(sum)]];
                 }
-
                 
-                [_dataArray replaceObjectAtIndex:tag withObject:@"-999"];
-                [_dataArray replaceObjectAtIndex:tag+1 withObject:[NSString stringWithFormat:@"%d",sum+1000]];
                 
                 [self clicked:imgView.center];
             }
@@ -365,18 +404,26 @@
                 CGPoint pt = imgView.center;
                 imgView.center = CGPointMake(pt.x, pt.y+IMG_WIDTH);
                 imgView.tag = tag+COLUMN_NUM+IMG_TAB_BEG;
-                if( sum >= 0 )
+                
+                
+                [_dataArray replaceObjectAtIndex:tag withObject:@"-999"];
+                [_dataArray replaceObjectAtIndex:tag+COLUMN_NUM withObject:[NSString stringWithFormat:@"%d",sum+1000]];
+                
+                if( sum > 0 )
                 {
                     imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"move_%d",sum]];
+                }
+                else if( sum == 0 )
+                {
+                    [_dataArray replaceObjectAtIndex:tag+COLUMN_NUM withObject:[NSString stringWithFormat:@"%d",-999]];
+                    imgView.image = [UIImage imageNamed:@"success"];
+                    imgView.userInteractionEnabled = NO;
                 }
                 else
                 {
                     imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"d_move_%d",abs(sum)]];
                 }
 
-                
-                [_dataArray replaceObjectAtIndex:tag withObject:@"-999"];
-                [_dataArray replaceObjectAtIndex:tag+COLUMN_NUM withObject:[NSString stringWithFormat:@"%d",sum+1000]];
                 
                 [self clicked:imgView.center];
             }
@@ -401,9 +448,13 @@
                 imgView.center = CGPointMake(pt.x-IMG_WIDTH, pt.y);
                 imgView.tag = tag-1+IMG_TAB_BEG;
                 
-                if( sum >= 0 )
+                if( sum > 0 )
                 {
                     imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"move_%d",sum]];
+                }
+                else if( sum == 0 )
+                {
+                    
                 }
                 else
                 {
@@ -434,9 +485,13 @@
                 CGPoint pt = imgView.center;
                 imgView.center = CGPointMake(pt.x, pt.y-IMG_WIDTH);
                 imgView.tag = tag-COLUMN_NUM+IMG_TAB_BEG;
-                if( sum >= 0 )
+                if( sum > 0 )
                 {
                     imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"move_%d",sum]];
+                }
+                else if( sum == 0 )
+                {
+                    
                 }
                 else
                 {
@@ -451,6 +506,8 @@
             }
         }
     }
+    
+    [self isGameSuccess];
 }
 
 -(void)clicked:(CGPoint)pt
