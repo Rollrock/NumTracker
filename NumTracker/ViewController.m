@@ -14,6 +14,15 @@
 #import "AppDelegate.h"
 #import "AboutViewController.h"
 
+
+/*
+ -999 表示空 也就是没有
+ 1000 以上的 表示移动的目标
+ 1-9  表示不移动的普通目标
+ 500 以上的 表示可变的目标
+ */
+
+
 #define IMG_TAB_BEG   10086
 
 #define PASS_STORE_KEY  @"pass_store"
@@ -21,8 +30,11 @@
 @interface ViewController ()<MyImageViewDelegate>
 {
     NSMutableArray * _InfoArray;
+    
     NSMutableArray * _dataArray;
-    NSMutableArray * _backUpArray;
+    NSMutableArray * _spDataArray;
+    //NSMutableArray * _backUpArray;
+    //NSMutableArray * _backUpSpArray;
     
     GADBannerView * _bannerView;
     
@@ -74,13 +86,22 @@
     [_dataArray removeAllObjects];
     _dataArray = nil;
     
-    [_backUpArray removeAllObjects];
-    _backUpArray = nil;
+    [_spDataArray removeAllObjects];
+    _spDataArray = nil;
+    
+   // [_backUpArray removeAllObjects];
+    //_backUpArray = nil;
+    
+    //[_backUpSpArray removeAllObjects];
+    //_backUpSpArray = nil;
+
     
     
     _InfoArray = [[NSMutableArray alloc]init];
     _dataArray = [[NSMutableArray alloc]init];
-    _backUpArray = [[NSMutableArray alloc]init];
+    //_backUpArray = [[NSMutableArray alloc]init];
+    _spDataArray = [[NSMutableArray alloc]init];
+   // _backUpSpArray = [[NSMutableArray alloc]init];
     
     //
     NSString * strPass = nil;
@@ -107,9 +128,24 @@
                 if( [subDict isKindOfClass:[NSDictionary class]] )
                 {
                     NSString * str = [subDict objectForKey:@"value"];
+                    
                     [_dataArray addObject:str];
+                    
+                    
                     //
-                    [_backUpArray addObject:str];
+                    //[_backUpArray addObject:str];
+                    
+                    
+                    if( [str intValue] > 500 && [str intValue] < 1000)
+                    {
+                        [_spDataArray addObject:[NSString stringWithFormat:@"%d",[str intValue]-500]];
+                        //[_backUpSpArray addObject:[NSString stringWithFormat:@"%d",[str intValue]-500]];
+                    }
+                    else
+                    {
+                        [_spDataArray addObject:@"-999"];
+                        //[_backUpSpArray addObject:@"-999"];
+                    }
                 }
             }
         }
@@ -140,13 +176,17 @@
                 info.image = [UIImage imageNamed:[NSString stringWithFormat:@"move_%d",value-1000]];
                 info.touchAble = YES;
             }
+            else if( value >= 500  && value < 1000)
+            {
+                info.image = [UIImage imageNamed:[NSString stringWithFormat:@"j_num_%d",value-500]];
+                info.touchAble = NO;
+            }
             
             [_InfoArray addObject:info];
         }
     }
     
     //
-    
     
     for( int i = 0; i < ROW_NUM; ++ i)
     {
@@ -349,13 +389,20 @@
         {
             int num = [[_dataArray objectAtIndex:tag+1]intValue];
             
-            if( num >= 1 && num <= 9 )
+            if( (num >= 1 && num <= 9) || (num>= 500 && num <= 600))
             {
-                sum -= num;
-                NSLog(@"sun:%d",sum);
+                if( num >= 1 && num <= 9 )
+                {
+                    sum -= num;
+                    ((UIImageView*)[self.view viewWithTag:tag+1+IMG_TAB_BEG]).image = [UIImage imageNamed:@"empty"];
+                }
+                else if( num >= 500 && num < 600 )
+                {
+                    sum -= num-500;
+                    ((UIImageView*)[self.view viewWithTag:tag+1+IMG_TAB_BEG]).image = [UIImage imageNamed:[NSString stringWithFormat:@"num_%d",num-500]];
+                }
                 
-            
-                ((UIImageView*)[self.view viewWithTag:tag+1+IMG_TAB_BEG]).image = [UIImage imageNamed:@"empty"];
+                NSLog(@"sun:%d",sum);
                 
                 CGPoint pt = imgView.center;
                 imgView.center = CGPointMake(pt.x+IMG_WIDTH, pt.y);
@@ -364,6 +411,12 @@
                 [_dataArray replaceObjectAtIndex:tag withObject:@"-999"];
                 [_dataArray replaceObjectAtIndex:tag+1 withObject:[NSString stringWithFormat:@"%d",sum+1000]];
                 
+                int sp = [[_spDataArray objectAtIndex:tag] intValue];
+                if( sp > 0 )
+                {
+                    [_dataArray replaceObjectAtIndex:tag withObject:[NSString stringWithFormat:@"%d",sp]];
+                    [_spDataArray replaceObjectAtIndex:tag withObject:@"-999"];
+                }
                 
                 if( sum > 0 )
                 {
@@ -371,11 +424,15 @@
                 }
                 else if( sum == 0 )
                 {
-                    [_dataArray replaceObjectAtIndex:tag+1 withObject:[NSString stringWithFormat:@"%d",-999]];
-                    imgView.image = [UIImage imageNamed:@"success"];
-                    imgView.userInteractionEnabled = NO;
+                    if( num >= 1 && num <= 9 )
+                    {
+                        [_dataArray replaceObjectAtIndex:tag+1 withObject:[NSString stringWithFormat:@"%d",-999]];
+                        imgView.image = [UIImage imageNamed:@"success"];
+                        imgView.userInteractionEnabled = NO;
+                        
+                        imgView.bTouch = NO;
+                    }
                     
-                    imgView.bTouch = NO;
                 }
                 else
                 {
@@ -393,13 +450,20 @@
         {
             int num = [[_dataArray objectAtIndex:tag+COLUMN_NUM]intValue];
             
-            if( num >= 1 && num <= 9 )
+            if( (num >= 1 && num <= 9 )||(num>= 500 && num <= 600))
             {
-                sum -= num;
-                NSLog(@"sun:%d",sum);
+                if( num >= 1 && num <= 9)
+                {
+                    sum -= num;
+                    ((UIImageView*)[self.view viewWithTag:tag+COLUMN_NUM+IMG_TAB_BEG]).image = [UIImage imageNamed:@"empty"];
+                }
+                else if(num>= 500 && num <= 600)
+                {
+                    sum -= num-500;
+                    ((UIImageView*)[self.view viewWithTag:tag+COLUMN_NUM+IMG_TAB_BEG]).image = [UIImage imageNamed:[NSString stringWithFormat:@"num_%d",num-500]];
+                }
                 
-               
-                ((UIImageView*)[self.view viewWithTag:tag+COLUMN_NUM+IMG_TAB_BEG]).image = [UIImage imageNamed:@"empty"];
+                NSLog(@"sun:%d",sum);
                 
                 CGPoint pt = imgView.center;
                 imgView.center = CGPointMake(pt.x, pt.y+IMG_WIDTH);
@@ -409,17 +473,28 @@
                 [_dataArray replaceObjectAtIndex:tag withObject:@"-999"];
                 [_dataArray replaceObjectAtIndex:tag+COLUMN_NUM withObject:[NSString stringWithFormat:@"%d",sum+1000]];
                 
+                int sp = [[_spDataArray objectAtIndex:tag] intValue];
+                if( sp > 0 )
+                {
+                    [_dataArray replaceObjectAtIndex:tag withObject:[NSString stringWithFormat:@"%d",sp]];
+                    [_spDataArray replaceObjectAtIndex:tag withObject:@"-999"];
+                }
+                
                 if( sum > 0 )
                 {
                     imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"move_%d",sum]];
                 }
                 else if( sum == 0 )
                 {
-                    [_dataArray replaceObjectAtIndex:tag+COLUMN_NUM withObject:[NSString stringWithFormat:@"%d",-999]];
-                    imgView.image = [UIImage imageNamed:@"success"];
-                    imgView.userInteractionEnabled = NO;
+                    if( num >= 1 && num <= 9 )
+                    {
+                        [_dataArray replaceObjectAtIndex:tag+COLUMN_NUM withObject:[NSString stringWithFormat:@"%d",-999]];
+                        imgView.image = [UIImage imageNamed:@"success"];
+                        imgView.userInteractionEnabled = NO;
+                        
+                        imgView.bTouch = NO;
+                    }
                     
-                    imgView.bTouch = NO;
                 }
                 else
                 {
@@ -431,18 +506,31 @@
             }
         }
     }
+    //向左
     else if( MOVE_LEFT == move)
     {
         if( column > 0 )
         {
             int num = [[_dataArray objectAtIndex:tag-1]intValue];
             
-            if( num >= 1 && num <= 9 )
+            //
+            
+            if((num >= 1 && num <= 9 ) || ( num >= 500 && num <= 600))
             {
-                sum -= num;
-                NSLog(@"sun:%d",sum);
+                if(num >= 1 && num <= 9 )
+                {
+                     sum -= num;
+                    ((UIImageView*)[self.view viewWithTag:tag-1+IMG_TAB_BEG]).image = [UIImage imageNamed:@"empty"];
+
+                }
+                else if( num >= 500 && num <= 600)
+                {
+                    sum -= num-500;
+                    ((UIImageView*)[self.view viewWithTag:tag-1+IMG_TAB_BEG]).image = [UIImage imageNamed:[NSString stringWithFormat:@"num_%d",num-500]];
+                }
                 
-                ((UIImageView*)[self.view viewWithTag:tag-1+IMG_TAB_BEG]).image = [UIImage imageNamed:@"empty"];
+               
+                NSLog(@"sun:%d",sum);
                 
                 CGPoint pt = imgView.center;
                 imgView.center = CGPointMake(pt.x-IMG_WIDTH, pt.y);
@@ -451,17 +539,28 @@
                 [_dataArray replaceObjectAtIndex:tag withObject:@"-999"];
                 [_dataArray replaceObjectAtIndex:tag-1 withObject:[NSString stringWithFormat:@"%d",sum+1000]];
                 
+                
+                int sp = [[_spDataArray objectAtIndex:tag] intValue];
+                if( sp > 0 )
+                {
+                    [_dataArray replaceObjectAtIndex:tag withObject:[NSString stringWithFormat:@"%d",sp]];
+                    [_spDataArray replaceObjectAtIndex:tag withObject:@"-999"];
+                }
+                
                 if( sum > 0 )
                 {
                     imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"move_%d",sum]];
                 }
                 else if( sum == 0 )
                 {
-                    [_dataArray replaceObjectAtIndex:tag-1 withObject:[NSString stringWithFormat:@"%d",-999]];
-                    imgView.image = [UIImage imageNamed:@"success"];
-                    imgView.userInteractionEnabled = NO;
-                    
-                    imgView.bTouch = NO;
+                    if(num >= 1 && num <= 9)
+                    {
+                        [_dataArray replaceObjectAtIndex:tag-1 withObject:[NSString stringWithFormat:@"%d",-999]];
+                        imgView.image = [UIImage imageNamed:@"success"];
+                        imgView.userInteractionEnabled = NO;
+                        
+                        imgView.bTouch = NO;
+                    }
                 }
                 else
                 {
@@ -478,12 +577,20 @@
         {
             int num = [[_dataArray objectAtIndex:tag-COLUMN_NUM]intValue];
             
-            if( num >= 1 && num <= 9 )
+            if( (num >= 1 && num <= 9) || (num >= 500 && num <= 600))
             {
-                sum -= num;
-                NSLog(@"sun:%d",sum);
+                if(num >= 1 && num <= 9)
+                {
+                    sum -= num;
+                    ((UIImageView*)[self.view viewWithTag:tag-COLUMN_NUM+IMG_TAB_BEG]).image = [UIImage imageNamed:@"empty"];
+                }
+                else if(num >= 500 && num <= 600)
+                {
+                    sum -= num-500;
+                    ((UIImageView*)[self.view viewWithTag:tag-COLUMN_NUM+IMG_TAB_BEG]).image = [UIImage imageNamed:[NSString stringWithFormat:@"num_%d",num-500]];
+                }
                 
-                ((UIImageView*)[self.view viewWithTag:tag-COLUMN_NUM+IMG_TAB_BEG]).image = [UIImage imageNamed:@"empty"];
+                NSLog(@"sun:%d",sum);
                 
                 CGPoint pt = imgView.center;
                 imgView.center = CGPointMake(pt.x, pt.y-IMG_WIDTH);
@@ -491,6 +598,13 @@
                 
                 [_dataArray replaceObjectAtIndex:tag withObject:@"-999"];
                 [_dataArray replaceObjectAtIndex:tag-COLUMN_NUM withObject:[NSString stringWithFormat:@"%d",sum+1000]];
+                
+                int sp = [[_spDataArray objectAtIndex:tag] intValue];
+                if( sp > 0 )
+                {
+                    [_dataArray replaceObjectAtIndex:tag withObject:[NSString stringWithFormat:@"%d",sp]];
+                    [_spDataArray replaceObjectAtIndex:tag withObject:@"-999"];
+                }
 
                 if( sum > 0 )
                 {
@@ -498,11 +612,15 @@
                 }
                 else if( sum == 0 )
                 {
-                    [_dataArray replaceObjectAtIndex:tag-COLUMN_NUM withObject:[NSString stringWithFormat:@"%d",-999]];
-                    imgView.image = [UIImage imageNamed:@"success"];
-                    imgView.userInteractionEnabled = NO;
+                    if( num >= 1 && num <= 9 )
+                    {
+                        [_dataArray replaceObjectAtIndex:tag-COLUMN_NUM withObject:[NSString stringWithFormat:@"%d",-999]];
+                        imgView.image = [UIImage imageNamed:@"success"];
+                        imgView.userInteractionEnabled = NO;
+                        
+                        imgView.bTouch = NO;
+                    }
                     
-                    imgView.bTouch = NO;
                 }
                 else
                 {
