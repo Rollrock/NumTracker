@@ -18,7 +18,22 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    [self layoutBackView];
+    
     self.view.backgroundColor = [UIColor grayColor];
+}
+
+-(void)layoutBackView
+{
+    UIButton * btn = [[UIButton alloc]initWithFrame:CGRectMake(10, 20, 40, 40)];
+    [btn setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(backClicked) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn];
+}
+
+-(void)backClicked
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {

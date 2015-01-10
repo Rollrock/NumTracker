@@ -15,6 +15,7 @@
 #import "AboutViewController.h"
 #import "BaiduMobAdView.h"
 #import "BaiduMobAdDelegateProtocol.h"
+#import "BaiduMobAdInterstitial.h"
 
 
 /*
@@ -29,17 +30,17 @@
 
 #define PASS_STORE_KEY  @"pass_store"
 
-@interface ViewController ()<MyImageViewDelegate,BaiduMobAdViewDelegate>
+@interface ViewController ()<MyImageViewDelegate,BaiduMobAdViewDelegate,BaiduMobAdInterstitialDelegate>
 {
     NSMutableArray * _InfoArray;
     
     NSMutableArray * _dataArray;
     NSMutableArray * _spDataArray;
-    //NSMutableArray * _backUpArray;
-    //NSMutableArray * _backUpSpArray;
     
     GADBannerView * _bannerView;
-    BaiduMobAdView * _baiduView;
+    
+    
+    //BaiduMobAdInterstitial *_baiduInterView;
     
     int ROW_NUM;
     int COLUMN_NUM;
@@ -49,6 +50,10 @@
     
     CGFloat screen_width;
     CGFloat screen_heigth;
+    
+    //
+    UIView * _passView;
+    BaiduMobAdView * _baiduView;
 }
 
 @end
@@ -62,7 +67,18 @@
     
     NSInteger val = [def integerForKey:PASS_STORE_KEY];
     
-    return [NSString stringWithFormat:@"%d",val];
+    return [NSString stringWithFormat:@"%d",val+1];
+}
+
+-(void)setCurPass
+{
+    NSUserDefaults * def = [NSUserDefaults standardUserDefaults];
+    
+    NSInteger val = [def integerForKey:PASS_STORE_KEY];
+    val += 1;
+    
+    [def setInteger:val forKey:PASS_STORE_KEY];
+    [def synchronize];
 }
 
 -(BOOL)isGameSuccess
@@ -85,6 +101,99 @@
     return YES;
 }
 
+
+//过关广告被点击
+-(void)didAdClicked
+{
+    [self hidePassView];
+}
+
+//隐藏过关
+-(void)hidePassView
+{
+    [UIView animateWithDuration:1 animations:^(void){
+        
+        //_passView.hidden = YES;
+        
+        _passView.frame = CGRectMake(0, 0, 0, 0);
+        _passView.center = self.view.center;
+        
+    }];
+}
+//显示过关
+-(void)showPassView
+{
+    [UIView animateWithDuration:1 animations:^(void){
+        
+        //_passView.hidden = NO;
+        _passView.frame = CGRectMake(0, 0, 300, 350);
+        _passView.center = self.view.center;
+        
+        [self.view bringSubviewToFront:_passView];
+        
+    }];
+}
+
+//初始化过关
+-(void)initPassView
+{
+    _passView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 0, 0)];
+    _passView.backgroundColor = [UIColor grayColor];
+    _passView.layer.cornerRadius = 8;
+    _passView.layer.masksToBounds = YES;
+    //_passView.hidden = YES;
+    _passView.center = self.view.center;
+    [self.view addSubview:_passView];
+    
+    //
+     _baiduView = [[BaiduMobAdView alloc]init];
+     _baiduView.AdType = BaiduMobAdViewTypeBanner;
+     _baiduView.frame = CGRectMake(0, 0, kBaiduAdViewSquareBanner300x250.width, kBaiduAdViewSquareBanner300x250.height);
+     _baiduView.delegate = self;
+     [_passView addSubview:_baiduView];
+     [_baiduView start];
+    
+    //
+    UIButton * nextBtn = [[UIButton alloc]initWithFrame:CGRectMake(150, 260, 100, 30)];
+    [nextBtn setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    [nextBtn addTarget:self action:@selector(nextClicked) forControlEvents:UIControlEventTouchUpInside];
+    [_passView addSubview:nextBtn];
+    
+    UIButton * againBtn = [[UIButton alloc]initWithFrame:CGRectMake(20, 260, 100, 30)];
+    [againBtn setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    [againBtn addTarget:self action:@selector(againClicked) forControlEvents:UIControlEventTouchUpInside];
+    [_passView addSubview:againBtn];
+    
+}
+
+//重玩一次
+-(void)againClicked
+{
+    [self hidePassView];
+    
+    [self reStartGame];
+}
+
+//下一关
+-(void)nextClicked
+{
+    
+    [self hidePassView];
+    
+    [self setCurPass];
+    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^(void){
+        
+        sleep(0.5);
+        
+        dispatch_async(dispatch_get_main_queue(), ^(void){
+            
+            [self reStartGame];
+        });
+        
+    });
+}
+
 -(void)initGame
 {
     
@@ -97,19 +206,12 @@
     [_spDataArray removeAllObjects];
     _spDataArray = nil;
     
-   // [_backUpArray removeAllObjects];
-    //_backUpArray = nil;
-    
-    //[_backUpSpArray removeAllObjects];
-    //_backUpSpArray = nil;
-
-    
     
     _InfoArray = [[NSMutableArray alloc]init];
     _dataArray = [[NSMutableArray alloc]init];
-    //_backUpArray = [[NSMutableArray alloc]init];
     _spDataArray = [[NSMutableArray alloc]init];
-   // _backUpSpArray = [[NSMutableArray alloc]init];
+    
+    NSMutableArray * animArray = [[NSMutableArray alloc]init];
     
     //
     NSString * strPass = nil;
@@ -140,19 +242,13 @@
                     [_dataArray addObject:str];
                     
                     
-                    //
-                    //[_backUpArray addObject:str];
-                    
-                    
                     if( [str intValue] > 500 && [str intValue] < 1000)
                     {
                         [_spDataArray addObject:[NSString stringWithFormat:@"%d",[str intValue]-500]];
-                        //[_backUpSpArray addObject:[NSString stringWithFormat:@"%d",[str intValue]-500]];
                     }
                     else
                     {
                         [_spDataArray addObject:@"-999"];
-                        //[_backUpSpArray addObject:@"-999"];
                     }
                 }
             }
@@ -206,19 +302,24 @@
             imgView.frame = CGRectMake(X_BEGIN_POS+j*IMG_WIDTH,Y_BEGIN_POS+i*IMG_WIDTH, IMG_WIDTH, IMG_WIDTH);
             imgView.tag = i*COLUMN_NUM + j+IMG_TAB_BEG;
             
-            NSLog(@"tag:%d",imgView.tag);
-            
+            NSLog(@"tag:%d num:%@",imgView.tag,info.num);
             
             if( info.touchAble )
             {
                 imgView.deletage = self;
                 
                 [self.view addSubview:imgView];
-                
             }
             else
             {
                 [self.view addSubview:imgView];
+            }
+            
+            //
+            if( ![info.num isEqualToString:@"-999"] )
+            {
+                imgView.hidden = YES;
+                [animArray addObject:[NSString stringWithFormat:@"%d",imgView.tag]];
             }
         }
     }
@@ -238,7 +339,50 @@
             }
         }
     }
+    
+    //产生动画效果
+    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^(void){
+        
+        while([animArray count] )
+        {
+            //NSLog(@"count:%d",[animArray count]);
+            
+            [NSThread sleepForTimeInterval:0.2];
+            
+            int index = arc4random() % ([animArray count]);
+            
+            NSString * str = [animArray objectAtIndex:index];
+            [animArray removeObjectAtIndex:index];
+            int tag = [str intValue];
+            
+            MyImageView * view =(MyImageView *) [self.view viewWithTag:tag];
+            
+            dispatch_async(dispatch_get_main_queue(), ^(void){
+                
+                [UIView animateWithDuration:0.3 animations:^(void){
+                    
+                    view.hidden = NO;
+                    CGPoint center = view.center;
+                    view.frame = CGRectMake(0, 0, IMG_WIDTH+10, IMG_WIDTH+10);
+                    view.center = center;
+                    
+                }completion:^(BOOL finish){
+                    
+                    [UIView animateWithDuration:0.2 animations:^(void){
+                        
+                        CGPoint center = view.center;
+                        view.frame = CGRectMake(0, 0, IMG_WIDTH, IMG_WIDTH);
+                        view.center = center;
+                    }];
+                    
+                }];
 
+                
+            });
+        }
+
+    });
 }
 
 -(void)btnClicked:(UIButton*)btn
@@ -375,6 +519,9 @@
     [self laytouADVView];
     //
     
+    [self initPassView];
+    
+    //
     self.view.backgroundColor = [UIColor whiteColor];
 }
 
@@ -628,7 +775,6 @@
                         
                         imgView.bTouch = NO;
                     }
-                    
                 }
                 else
                 {
@@ -640,7 +786,10 @@
         }
     }
     
-    [self isGameSuccess];
+    if( [self isGameSuccess] )
+    {
+        [self showPassView];
+    }
 }
 
 -(void)clicked:(CGPoint)pt
@@ -694,23 +843,13 @@
     return @"bf498248";
 }
 
+
 -(void)laytouADVView
 {
     CGRect rect = [[UIScreen mainScreen]bounds];
     CGPoint pt ;
-    
-    
-    
-    _baiduView = [[BaiduMobAdView alloc]init];
-    _baiduView.AdType = BaiduMobAdViewTypeBanner;
-    _baiduView.frame = CGRectMake(0, rect.origin.y+rect.size.height-kBaiduAdViewSizeDefaultHeight, kBaiduAdViewSizeDefaultWidth, kBaiduAdViewSizeDefaultHeight);
-    _baiduView.delegate = self;
-    [self.view addSubview:_baiduView];
-    [_baiduView start];
-    
-    
-    /*
-    
+
+
     if( screen_width == 320 && screen_heigth == 480 )
     {
         pt = CGPointMake(0, rect.origin.y+rect.size.height-kGADAdSizeLargeBanner.size.height-1);
@@ -741,7 +880,7 @@
     }
     
     [self.view addSubview:_bannerView];
-    */
+    
 }
 
 
