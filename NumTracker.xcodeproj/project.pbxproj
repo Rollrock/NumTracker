@@ -221,6 +221,11 @@
 		48347F9A1A60264D00784EF0 /* 4s_22.txt in Resources */ = {isa = PBXBuildFile; fileRef = 48347F831A60264D00784EF0 /* 4s_22.txt */; };
 		48347F9B1A60264D00784EF0 /* 4s_23.txt in Resources */ = {isa = PBXBuildFile; fileRef = 48347F841A60264D00784EF0 /* 4s_23.txt */; };
 		48347F9D1A60401300784EF0 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 48347F9C1A60401300784EF0 /* back.png */; };
+		48347FA01A612C4000784EF0 /* 5_1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 48347F9F1A612C4000784EF0 /* 5_1.txt */; };
+		48347FA51A61376700784EF0 /* 6_1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 48347FA21A61376700784EF0 /* 6_1.txt */; };
+		48347FA61A61376700784EF0 /* 6p_1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 48347FA41A61376700784EF0 /* 6p_1.txt */; };
+		48347FAA1A6153B400784EF0 /* PassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48347FA81A6153B400784EF0 /* PassViewController.m */; };
+		48347FAB1A6153B400784EF0 /* PassViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48347FA91A6153B400784EF0 /* PassViewController.xib */; };
 		486AE5F31A52EA72002E75C6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 486AE5F21A52EA72002E75C6 /* main.m */; };
 		486AE5F61A52EA72002E75C6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 486AE5F51A52EA72002E75C6 /* AppDelegate.m */; };
 		486AE5F91A52EA72002E75C6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 486AE5F81A52EA72002E75C6 /* ViewController.m */; };
@@ -499,6 +504,12 @@
 		48347F831A60264D00784EF0 /* 4s_22.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 4s_22.txt; sourceTree = "<group>"; };
 		48347F841A60264D00784EF0 /* 4s_23.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 4s_23.txt; sourceTree = "<group>"; };
 		48347F9C1A60401300784EF0 /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
+		48347F9F1A612C4000784EF0 /* 5_1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 5_1.txt; sourceTree = "<group>"; };
+		48347FA21A61376700784EF0 /* 6_1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 6_1.txt; sourceTree = "<group>"; };
+		48347FA41A61376700784EF0 /* 6p_1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 6p_1.txt; sourceTree = "<group>"; };
+		48347FA71A6153B400784EF0 /* PassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassViewController.h; sourceTree = "<group>"; };
+		48347FA81A6153B400784EF0 /* PassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassViewController.m; sourceTree = "<group>"; };
+		48347FA91A6153B400784EF0 /* PassViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PassViewController.xib; sourceTree = "<group>"; };
 		486AE5ED1A52EA72002E75C6 /* NumTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NumTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		486AE5F11A52EA72002E75C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		486AE5F21A52EA72002E75C6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -899,6 +910,30 @@
 			path = WeChatSDK;
 			sourceTree = "<group>";
 		};
+		48347F9E1A612C4000784EF0 /* iphone5 */ = {
+			isa = PBXGroup;
+			children = (
+				48347F9F1A612C4000784EF0 /* 5_1.txt */,
+			);
+			path = iphone5;
+			sourceTree = "<group>";
+		};
+		48347FA11A61376700784EF0 /* iphone6 */ = {
+			isa = PBXGroup;
+			children = (
+				48347FA21A61376700784EF0 /* 6_1.txt */,
+			);
+			path = iphone6;
+			sourceTree = "<group>";
+		};
+		48347FA31A61376700784EF0 /* iphone6p */ = {
+			isa = PBXGroup;
+			children = (
+				48347FA41A61376700784EF0 /* 6p_1.txt */,
+			);
+			path = iphone6p;
+			sourceTree = "<group>";
+		};
 		486AE5E41A52EA72002E75C6 = {
 			isa = PBXGroup;
 			children = (
@@ -967,6 +1002,9 @@
 				486AE5F21A52EA72002E75C6 /* main.m */,
 				482338531A5D694700F35E44 /* AboutViewController.h */,
 				482338541A5D694700F35E44 /* AboutViewController.m */,
+				48347FA71A6153B400784EF0 /* PassViewController.h */,
+				48347FA81A6153B400784EF0 /* PassViewController.m */,
+				48347FA91A6153B400784EF0 /* PassViewController.xib */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -991,6 +1029,9 @@
 		486AE61C1A52F6C3002E75C6 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				48347FA11A61376700784EF0 /* iphone6 */,
+				48347FA31A61376700784EF0 /* iphone6p */,
+				48347F9E1A612C4000784EF0 /* iphone5 */,
 				482338691A5EA5CD00F35E44 /* Images */,
 				482338561A5D86D000F35E44 /* iphone4s */,
 			);
@@ -1114,6 +1155,7 @@
 				48347F8F1A60264D00784EF0 /* 4s_11.txt in Resources */,
 				482339921A5EA5CD00F35E44 /* num_9.png in Resources */,
 				486AE5FC1A52EA72002E75C6 /* Main.storyboard in Resources */,
+				48347FA61A61376700784EF0 /* 6p_1.txt in Resources */,
 				482339121A5EA5CD00F35E44 /* d_move_24.png in Resources */,
 				482339061A5EA5CD00F35E44 /* d_move_13.png in Resources */,
 				48347F881A60264D00784EF0 /* 4s_4.txt in Resources */,
@@ -1143,6 +1185,7 @@
 				48347F8E1A60264D00784EF0 /* 4s_10.txt in Resources */,
 				482339081A5EA5CD00F35E44 /* d_move_15.png in Resources */,
 				482339631A5EA5CD00F35E44 /* move_3.png in Resources */,
+				48347FA51A61376700784EF0 /* 6_1.txt in Resources */,
 				482339311A5EA5CD00F35E44 /* d_move_7.png in Resources */,
 				4823395F1A5EA5CD00F35E44 /* move_26.png in Resources */,
 				482339261A5EA5CD00F35E44 /* d_move_42.png in Resources */,
@@ -1171,6 +1214,7 @@
 				48347F951A60264D00784EF0 /* 4s_17.txt in Resources */,
 				4823393B1A5EA5CD00F35E44 /* j_num_11.png in Resources */,
 				4823396D1A5EA5CD00F35E44 /* move_39.png in Resources */,
+				48347FA01A612C4000784EF0 /* 5_1.txt in Resources */,
 				4823391C1A5EA5CD00F35E44 /* d_move_33.png in Resources */,
 				482339201A5EA5CD00F35E44 /* d_move_37.png in Resources */,
 				482339861A5EA5CD00F35E44 /* num_15.png in Resources */,
@@ -1212,6 +1256,7 @@
 				486AE5FE1A52EA72002E75C6 /* Images.xcassets in Resources */,
 				4823395A1A5EA5CD00F35E44 /* move_21.png in Resources */,
 				4823395C1A5EA5CD00F35E44 /* move_23.png in Resources */,
+				48347FAB1A6153B400784EF0 /* PassViewController.xib in Resources */,
 				4823390E1A5EA5CD00F35E44 /* d_move_20.png in Resources */,
 				482339521A5EA5CD00F35E44 /* move_14.png in Resources */,
 				482339801A5EA5CD00F35E44 /* num_1.png in Resources */,
@@ -1295,6 +1340,7 @@
 				48233A261A5ED96500F35E44 /* CJSONSerializer.m in Sources */,
 				486AE5F31A52EA72002E75C6 /* main.m in Sources */,
 				48233A221A5ED96500F35E44 /* CDataScanner_Extensions.m in Sources */,
+				48347FAA1A6153B400784EF0 /* PassViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

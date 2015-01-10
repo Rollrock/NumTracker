@@ -18,6 +18,15 @@
 #import "BaiduMobAdInterstitial.h"
 
 
+typedef enum
+{
+    IPHONE_4,
+    IPHONE_5,
+    IPHONE_6,
+    IPHONE_6P
+}IPHONE_TYPE;
+
+
 /*
  -999 表示空 也就是没有
  1000 以上的 表示移动的目标
@@ -39,9 +48,7 @@
     
     GADBannerView * _bannerView;
     
-    
-    //BaiduMobAdInterstitial *_baiduInterView;
-    
+
     int ROW_NUM;
     int COLUMN_NUM;
     
@@ -54,6 +61,8 @@
     //
     UIView * _passView;
     BaiduMobAdView * _baiduView;
+    
+    IPHONE_TYPE _iphoneType;
 }
 
 @end
@@ -113,21 +122,36 @@
 {
     [UIView animateWithDuration:1 animations:^(void){
         
-        //_passView.hidden = YES;
-        
-        _passView.frame = CGRectMake(0, 0, 0, 0);
+        _passView.frame = CGRectMake(0, 0, 1, 1);
         _passView.center = self.view.center;
+        _passView.hidden = YES;
         
     }];
 }
+
 //显示过关
 -(void)showPassView
 {
     [UIView animateWithDuration:1 animations:^(void){
         
-        //_passView.hidden = NO;
-        _passView.frame = CGRectMake(0, 0, 300, 350);
-        _passView.center = self.view.center;
+        _passView.hidden = NO;
+        
+        if( _iphoneType == IPHONE_4 )
+        {
+            _passView.frame = CGRectMake(0, 0, screen_width, 370);
+        }
+        else if (_iphoneType == IPHONE_5)
+        {
+             _passView.frame = CGRectMake(0, 0, screen_width, 450);
+        }
+        else if(_iphoneType == IPHONE_6 )
+        {
+            _passView.frame = CGRectMake(0, 0, screen_width, 490);
+        }
+        else if(_iphoneType == IPHONE_6P )
+        {
+            _passView.frame = CGRectMake(0, 0, screen_width, 610);
+        }
         
         [self.view bringSubviewToFront:_passView];
         
@@ -137,29 +161,66 @@
 //初始化过关
 -(void)initPassView
 {
+    CGFloat _baduViewYPos = 0;
+    CGRect nextBtnRect;
+    CGRect againBtnRect;
+    
+    if( _iphoneType == IPHONE_4 )
+    {
+        _baduViewYPos = 40;
+        againBtnRect= CGRectMake(30, 310, 100, 40);
+        nextBtnRect= CGRectMake(190, 310, 100, 40);
+        
+    }
+    else if( _iphoneType == IPHONE_5 )
+    {
+        _baduViewYPos = 40;
+        againBtnRect= CGRectMake(30, 330, 100, 40);
+        nextBtnRect= CGRectMake(190, 330, 100, 40);
+
+    }
+    else if( _iphoneType == IPHONE_6 )
+    {
+        _baduViewYPos = 100;
+        againBtnRect= CGRectMake(50, 410, 100, 40);
+        nextBtnRect= CGRectMake(220, 410, 100, 40);
+    }
+    else if( _iphoneType == IPHONE_6P )
+    {
+        _baduViewYPos = 20;
+        againBtnRect= CGRectMake(70, 540, 100, 40);
+        nextBtnRect= CGRectMake(240, 540, 100, 40);
+
+    }
+    
     _passView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 0, 0)];
     _passView.backgroundColor = [UIColor grayColor];
     _passView.layer.cornerRadius = 8;
     _passView.layer.masksToBounds = YES;
-    //_passView.hidden = YES;
     _passView.center = self.view.center;
     [self.view addSubview:_passView];
     
     //
      _baiduView = [[BaiduMobAdView alloc]init];
      _baiduView.AdType = BaiduMobAdViewTypeBanner;
-     _baiduView.frame = CGRectMake(0, 0, kBaiduAdViewSquareBanner300x250.width, kBaiduAdViewSquareBanner300x250.height);
+     _baiduView.frame = CGRectMake(0, _baduViewYPos, kBaiduAdViewSquareBanner300x250.width, kBaiduAdViewSquareBanner300x250.height);
+    
+    if( _iphoneType == IPHONE_6P )
+    {
+        _baiduView.frame = CGRectMake(0, _baduViewYPos, kBaiduAdViewSquareBanner600x500.width, kBaiduAdViewSquareBanner600x500.height);
+    }
+     _baiduView.center = CGPointMake(screen_width/2, _baiduView.center.y);
      _baiduView.delegate = self;
      [_passView addSubview:_baiduView];
      [_baiduView start];
     
     //
-    UIButton * nextBtn = [[UIButton alloc]initWithFrame:CGRectMake(150, 260, 100, 30)];
+    UIButton * nextBtn = [[UIButton alloc]initWithFrame:nextBtnRect];
     [nextBtn setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
     [nextBtn addTarget:self action:@selector(nextClicked) forControlEvents:UIControlEventTouchUpInside];
     [_passView addSubview:nextBtn];
     
-    UIButton * againBtn = [[UIButton alloc]initWithFrame:CGRectMake(20, 260, 100, 30)];
+    UIButton * againBtn = [[UIButton alloc]initWithFrame:againBtnRect];
     [againBtn setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
     [againBtn addTarget:self action:@selector(againClicked) forControlEvents:UIControlEventTouchUpInside];
     [_passView addSubview:againBtn];
@@ -177,7 +238,6 @@
 //下一关
 -(void)nextClicked
 {
-    
     [self hidePassView];
     
     [self setCurPass];
@@ -215,10 +275,24 @@
     
     //
     NSString * strPass = nil;
-    if( screen_width == 320 && screen_heigth == 480 )
+    
+    if( _iphoneType == IPHONE_4 )
     {
         strPass = [NSString stringWithFormat:@"4s_%@.txt",[self getCurPass]];
     }
+    else if( _iphoneType == IPHONE_5 )
+    {
+        strPass = [NSString stringWithFormat:@"5_%@.txt",[self getCurPass]];
+    }
+    else if( _iphoneType == IPHONE_6 )
+    {
+        strPass = [NSString stringWithFormat:@"6_%@.txt",[self getCurPass]];
+    }
+    else if( _iphoneType == IPHONE_6P )
+    {
+        strPass = [NSString stringWithFormat:@"6p_%@.txt",[self getCurPass]];
+    }
+
     
     NSString * filePath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:strPass];
     NSString * strText = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
@@ -375,16 +449,13 @@
                         view.frame = CGRectMake(0, 0, IMG_WIDTH, IMG_WIDTH);
                         view.center = center;
                     }];
-                    
                 }];
-
-                
             });
         }
-
     });
 }
 
+//重新开始
 -(void)btnClicked:(UIButton*)btn
 {
     if( 0 == btn.tag )
@@ -400,7 +471,8 @@
     }
     else if( 2 == btn.tag )
     {
-        [self reStartGame];
+        [self showPassView];
+        //[self againClicked];
     }
 }
 
@@ -421,10 +493,19 @@
 -(void)layoutControllers
 {
     CGRect rect;
+    CGFloat xPox = 0;
     
+    if( _iphoneType == IPHONE_6 )
+    {
+        xPox = 20;
+    }
+    else if( _iphoneType == IPHONE_6P )
+    {
+        xPox = 40;
+    }
     //
     {
-        rect = CGRectMake(15, 20, 90, 40);
+        rect = CGRectMake(xPox+15, 20, 90, 40);
         UIButton * btn = [[UIButton alloc]initWithFrame:rect];
         btn.tag = 0;
         [btn setTitle:@"关于我们" forState:UIControlStateNormal];
@@ -437,7 +518,7 @@
     }
     //
     {
-        rect = CGRectMake(120, 20, 90, 40);
+        rect = CGRectMake(xPox+120, 20, 90, 40);
         UIButton * btn = [[UIButton alloc]initWithFrame:rect];
         btn.tag = 1;
         [btn setTitle:@"微信分享" forState:UIControlStateNormal];
@@ -450,7 +531,7 @@
     }
     //
     {
-        rect = CGRectMake(220, 20, 90, 40);
+        rect = CGRectMake(xPox+220, 20, 90, 40);
         UIButton * btn = [[UIButton alloc]initWithFrame:rect];
         btn.tag = 2;
         [btn setTitle:@"重新开始" forState:UIControlStateNormal];
@@ -463,62 +544,84 @@
     }
 }
 
+-(void)initScreenValue
+{
+    CGRect rect = [[UIScreen mainScreen] bounds];
+    screen_width = rect.size.width;
+    screen_heigth = rect.size.height;
+    
+    if( screen_width == 320 && screen_heigth == 480 )
+    {
+        _iphoneType = IPHONE_4;
+    }
+    else if( screen_width == 320 && screen_heigth == 1136/2)
+    {
+        _iphoneType = IPHONE_5;
+    }
+    else if( screen_width == 750/2 )
+    {
+        _iphoneType = IPHONE_6;
+    }
+    else if( screen_width == 1242/3)
+    {
+        _iphoneType = IPHONE_6P;
+    }
+
+}
+
+-(void)initPosValue
+{
+    if( _iphoneType == IPHONE_4 )
+    {
+        X_BEGIN_POS = 10;
+        Y_BEGIN_POS = 70;
+        
+        ROW_NUM = 5;
+        COLUMN_NUM = 5;
+    }
+    else if( _iphoneType == IPHONE_5 )
+    {
+        X_BEGIN_POS = 10;
+        Y_BEGIN_POS = 70;
+        
+        ROW_NUM = 6;
+        COLUMN_NUM = 5;
+    }
+    else if( _iphoneType == IPHONE_6 )
+    {
+        X_BEGIN_POS = 5;
+        Y_BEGIN_POS = 70;
+        
+        ROW_NUM = 7;
+        COLUMN_NUM = 6;
+    }
+    else if( _iphoneType == IPHONE_6P )
+    {
+        X_BEGIN_POS = 30;
+        Y_BEGIN_POS = 70;
+        
+        ROW_NUM = 9;
+        COLUMN_NUM = 6;
+    }
+
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    {
-        CGRect rect = [[UIScreen mainScreen] bounds];
-        screen_width = rect.size.width;
-        screen_heigth = rect.size.height;
-        
-        if( screen_width == 320 )
-        {
-            // iphone4
-            if( screen_heigth == 480 )
-            {
-                X_BEGIN_POS = 10;
-                Y_BEGIN_POS = 70;
-                
-                ROW_NUM = 5;
-                COLUMN_NUM = 5;
-            }
-            // iphone5
-            else
-            {
-                X_BEGIN_POS = 10;
-                Y_BEGIN_POS = 70;
-                
-                ROW_NUM = 6;
-                COLUMN_NUM = 5;
-            }
-        }
-        //  6
-        else if( screen_width == 750/2)
-        {
-            X_BEGIN_POS = 5;
-            Y_BEGIN_POS = 70;
-            
-            ROW_NUM = 7;
-            COLUMN_NUM = 6;
-        }
-        // 6p
-        else if( screen_width == 1 )
-        {
-            
-        }
-    }
-    
+    //
+    [self initScreenValue];
+    //
+    [self initPosValue];
     //
     [self layoutControllers];
     //
     [self initGame];
-    
-    ///
+
     ///
     [self laytouADVView];
     //
-    
     [self initPassView];
     
     //
@@ -849,38 +952,35 @@
     CGRect rect = [[UIScreen mainScreen]bounds];
     CGPoint pt ;
 
+    if( _iphoneType == IPHONE_4 )
+    {
+        pt = CGPointMake(0, rect.origin.y+rect.size.height-kGADAdSizeLargeBanner.size.height-1);
+        _bannerView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeLargeBanner origin:pt];
+    }
+    else if( _iphoneType == IPHONE_5 )
+    {
+        pt = CGPointMake(0, rect.origin.y+rect.size.height-kGADAdSizeLargeBanner.size.height-1);
+        _bannerView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeLargeBanner origin:pt];
+    }
+    else if( _iphoneType == IPHONE_6 )
+    {
+        GADAdSize size = GADAdSizeFromCGSize(CGSizeMake(screen_width, 170));
+        pt = CGPointMake(0, rect.origin.y+rect.size.height-size.size.height-1);
+        _bannerView = [[GADBannerView alloc] initWithAdSize:size origin:pt];
 
-    if( screen_width == 320 && screen_heigth == 480 )
-    {
-        pt = CGPointMake(0, rect.origin.y+rect.size.height-kGADAdSizeLargeBanner.size.height-1);
-        _bannerView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeLargeBanner origin:pt];
     }
-    else if( screen_width == 320 && screen_heigth == 1136/2)
+    else if( _iphoneType == IPHONE_6P )
     {
-        pt = CGPointMake(0, rect.origin.y+rect.size.height-kGADAdSizeLargeBanner.size.height-1);
-        _bannerView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeLargeBanner origin:pt];
-    }
-    else if( screen_width == 750/2 && screen_heigth == 1334/2 )
-    {
-        pt = CGPointMake(0, rect.origin.y+rect.size.height-kGADAdSizeLargeBanner.size.height-1);
-        _bannerView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeLargeBanner origin:pt];
+        GADAdSize size = GADAdSizeFromCGSize(CGSizeMake(screen_width, 120));
+        pt = CGPointMake(0, rect.origin.y+rect.size.height-size.size.height-1);
+        _bannerView = [[GADBannerView alloc] initWithAdSize:size origin:pt];
     }
 
     _bannerView.adUnitID = ADMOB_ID;//调用你的id
-    
     _bannerView.rootViewController = self;
-    
     [_bannerView loadRequest:[GADRequest request]];
     
-    
-    if( rect.size.height >= 568 )
-    {
-        pt = _bannerView.center;
-        _bannerView.center = CGPointMake([[UIScreen mainScreen] bounds].size.width/2, pt.y);
-    }
-    
     [self.view addSubview:_bannerView];
-    
 }
 
 
