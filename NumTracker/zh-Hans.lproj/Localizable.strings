@@ -1,0 +1,9 @@
+/* 
+  Localizable.strings
+  NumTracker
+
+  Created by zhuang chaoxiao on 15-1-12.
+  Copyright (c) 2015年 zhuang chaoxiao. All rights reserved.
+*/
+CFBundleDisplayName="数字轨迹";
+"playAgain"="重来一次";

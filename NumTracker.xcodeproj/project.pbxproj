@@ -227,6 +227,7 @@
 		48347FAA1A6153B400784EF0 /* PassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48347FA81A6153B400784EF0 /* PassViewController.m */; };
 		48347FAB1A6153B400784EF0 /* PassViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48347FA91A6153B400784EF0 /* PassViewController.xib */; };
 		48347FAE1A627E6F00784EF0 /* MyPayMent.m in Sources */ = {isa = PBXBuildFile; fileRef = 48347FAD1A627E6F00784EF0 /* MyPayMent.m */; };
+		48347FC31A62D9E000784EF0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 48347FC51A62D9E000784EF0 /* Localizable.strings */; };
 		486AE5F31A52EA72002E75C6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 486AE5F21A52EA72002E75C6 /* main.m */; };
 		486AE5F61A52EA72002E75C6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 486AE5F51A52EA72002E75C6 /* AppDelegate.m */; };
 		486AE5F91A52EA72002E75C6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 486AE5F81A52EA72002E75C6 /* ViewController.m */; };
@@ -513,6 +514,10 @@
 		48347FA91A6153B400784EF0 /* PassViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PassViewController.xib; sourceTree = "<group>"; };
 		48347FAC1A627E6F00784EF0 /* MyPayMent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPayMent.h; sourceTree = "<group>"; };
 		48347FAD1A627E6F00784EF0 /* MyPayMent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPayMent.m; sourceTree = "<group>"; };
+		48347FC11A62D96300784EF0 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		48347FC21A62D96300784EF0 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		48347FC41A62D9E000784EF0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		48347FC61A62D9E200784EF0 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		486AE5ED1A52EA72002E75C6 /* NumTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NumTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		486AE5F11A52EA72002E75C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		486AE5F21A52EA72002E75C6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -991,6 +996,7 @@
 				486AE6171A52EB03002E75C6 /* MyImageView.m */,
 				48347FAC1A627E6F00784EF0 /* MyPayMent.h */,
 				48347FAD1A627E6F00784EF0 /* MyPayMent.m */,
+				48347FC51A62D9E000784EF0 /* Localizable.strings */,
 			);
 			path = NumTracker;
 			sourceTree = "<group>";
@@ -1107,6 +1113,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = 486AE5E41A52EA72002E75C6;
 			productRefGroup = 486AE5EE1A52EA72002E75C6 /* Products */;
@@ -1142,6 +1149,7 @@
 				4823397E1A5EA5CD00F35E44 /* move_9.png in Resources */,
 				48347F991A60264D00784EF0 /* 4s_21.txt in Resources */,
 				482339391A5EA5CD00F35E44 /* j_num_1.png in Resources */,
+				48347FC31A62D9E000784EF0 /* Localizable.strings in Resources */,
 				4823391D1A5EA5CD00F35E44 /* d_move_34.png in Resources */,
 				48347F851A60264D00784EF0 /* 4s_1.txt in Resources */,
 				4823392B1A5EA5CD00F35E44 /* d_move_47.png in Resources */,
@@ -1369,10 +1377,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		48347FC51A62D9E000784EF0 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				48347FC41A62D9E000784EF0 /* en */,
+				48347FC61A62D9E200784EF0 /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		486AE5FA1A52EA72002E75C6 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				486AE5FB1A52EA72002E75C6 /* Base */,
+				48347FC11A62D96300784EF0 /* zh-Hans */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -1381,6 +1399,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				486AE6001A52EA72002E75C6 /* Base */,
+				48347FC21A62D96300784EF0 /* zh-Hans */,
 			);
 			name = LaunchScreen.xib;
 			sourceTree = "<group>";
@@ -1423,7 +1442,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1459,7 +1478,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;

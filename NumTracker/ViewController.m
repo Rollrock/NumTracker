@@ -63,12 +63,20 @@ typedef enum
     BaiduMobAdView * _baiduView;
     
     IPHONE_TYPE _iphoneType;
+    
+    BOOL _advBuy;
 }
 
 @end
 
 @implementation ViewController
 
+
+-(void)initAdvBuyFlag
+{
+    NSUserDefaults * def = [NSUserDefaults standardUserDefaults];
+    _advBuy = [def boolForKey:ADV_BUY_KEY];
+}
 
 -(NSString*)getCurPass
 {
@@ -534,7 +542,7 @@ typedef enum
         rect = CGRectMake(xPox+220, 20, 90, 40);
         UIButton * btn = [[UIButton alloc]initWithFrame:rect];
         btn.tag = 2;
-        [btn setTitle:@"重新开始" forState:UIControlStateNormal];
+        [btn setTitle:NSLocalizedString(@"playAgain", nil) forState:UIControlStateNormal];
         btn.layer.cornerRadius = 5;
         btn.backgroundColor = [UIColor lightGrayColor];
         btn.layer.masksToBounds = YES;
@@ -610,6 +618,7 @@ typedef enum
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
+    [self initAdvBuyFlag];
     //
     [self initScreenValue];
     //
@@ -759,7 +768,6 @@ typedef enum
                     imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"d_move_%d",abs(sum)]];
                 }
 
-                
                 [self clicked:imgView.center];
             }
         }
@@ -904,7 +912,7 @@ typedef enum
     layer.fillColor = [[UIColor clearColor]CGColor];
     layer.strokeColor = [[UIColor orangeColor] CGColor];
     layer.lineCap = kCALineCapRound;
-    layer.position = pt;//CGPointMake(125, 225);
+    layer.position = pt;
     layer.lineWidth = 3.0f;
     
     CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
@@ -947,8 +955,14 @@ typedef enum
 }
 
 
+//底部广告
 -(void)laytouADVView
 {
+    if( _advBuy )
+    {
+        return;
+    }
+    
     CGRect rect = [[UIScreen mainScreen]bounds];
     CGPoint pt ;
 

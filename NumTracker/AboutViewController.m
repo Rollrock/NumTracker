@@ -7,8 +7,8 @@
 //
 
 #import "AboutViewController.h"
-//#import "MyPayMent.h"
 #import <StoreKit/StoreKit.h>
+#import "dataStruct.h"
 
 @interface AboutViewController ()<SKProductsRequestDelegate,SKPaymentTransactionObserver>
 
@@ -112,7 +112,7 @@
     NSArray * myprd = response.products;
     
     NSLog(@"prodId:%@",response.invalidProductIdentifiers);
-    NSLog(@"prod count:%d",[myprd count]);
+    NSLog(@"prod count:%ud",[myprd count]);
     
     //
     
@@ -168,6 +168,13 @@
                 UIAlertView * alterView = [[UIAlertView alloc]initWithTitle:@"pay success" message:@"pay success" delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil, nil];
                 
                 [alterView show];
+                
+                //
+                
+                NSUserDefaults * def = [NSUserDefaults standardUserDefaults];
+                [def setBool:YES forKey:ADV_BUY_KEY];
+                [def synchronize];
+                
             }
                 break;
                 

@@ -2,6 +2,8 @@
 #import <UIKit/UIKit.h>
 
 
+
+
 typedef enum
 {
     MOVE_LEFT,
@@ -14,6 +16,8 @@ typedef enum
 #define ADMOB_ID  @"ca-app-pub-3058205099381432/8591538347"
 
 #define IMG_WIDTH  60.0f
+
+#define ADV_BUY_KEY  @"adv_buy"
 
 
 //////////////////////////////////////////////////////////////////
