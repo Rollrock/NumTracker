@@ -1,66 +1,15 @@
 //
-//  AboutViewController.m
+//  MyPayMent.m
 //  NumTracker
 //
-//  Created by zhuang chaoxiao on 15-1-7.
+//  Created by zhuang chaoxiao on 15-1-11.
 //  Copyright (c) 2015年 zhuang chaoxiao. All rights reserved.
 //
 
-#import "AboutViewController.h"
-//#import "MyPayMent.h"
-#import <StoreKit/StoreKit.h>
-
-@interface AboutViewController ()<SKProductsRequestDelegate,SKPaymentTransactionObserver>
-
-@end
-
-@implementation AboutViewController
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
-    [self layoutBackView];
-    
-    [self layoutBuyView];
-    
-    self.view.backgroundColor = [UIColor grayColor];
-}
-
--(void)layoutBackView
-{
-    UIButton * btn = [[UIButton alloc]initWithFrame:CGRectMake(10, 20, 40, 40)];
-    [btn setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
-    [btn addTarget:self action:@selector(backClicked) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btn];
-}
-
--(void)layoutBuyView
-{
-    UIButton * btn = [[UIButton alloc]initWithFrame:CGRectMake(100, 20, 40, 40)];
-    [btn setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
-    [btn addTarget:self action:@selector(buyClicked) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btn];
-}
+#import "MyPayMent.h"
 
 
--(void)buyClicked
-{
-    [self butIt];
-}
-
-
--(void)backClicked
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-///////////////
+@implementation MyPayMent
 
 -(void)butIt
 {
@@ -262,14 +211,5 @@
 }
 
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
