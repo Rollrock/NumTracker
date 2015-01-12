@@ -524,6 +524,7 @@ typedef enum
         
         [btn addTarget:self action:@selector(btnClicked:) forControlEvents:UIControlEventTouchUpInside];
     }
+    
     //
     {
         rect = CGRectMake(xPox+120, 20, 90, 40);
