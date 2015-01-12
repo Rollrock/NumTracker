@@ -24,14 +24,33 @@
     
     if( self )
     {
-        if( info.image )
+        if( info.num != INVALIDE_NUM)
         {
-            self.image = info.image;
+            if( info.touchAble )
+            {
+                self.userInteractionEnabled = YES;
+                self.image = [UIImage imageNamed:[NSString stringWithFormat:@"move_%d",info.num]];
+            }
+            else
+            {
+                if( info.repeatCount == 1 )
+                {
+                    self.image = [UIImage imageNamed:[NSString stringWithFormat:@"num_%d",info.repeatNum]];
+                }
+                else if( info.repeatCount == 2 )
+                {
+                    self.image = [UIImage imageNamed:[NSString stringWithFormat:@"j_num_%d",info.repeatNum]];
+                }
+                else if( info.repeatCount == 3 )
+                {
+                    
+                }
+
+            }
         }
-        
-        if( info.touchAble )
+        else
         {
-            self.userInteractionEnabled = YES;
+            self.image = nil;
         }
     }
     

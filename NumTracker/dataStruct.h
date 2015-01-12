@@ -19,14 +19,17 @@ typedef enum
 
 #define ADV_BUY_KEY  @"adv_buy"
 
+#define INVALIDE_NUM    -999
+#define IMG_TAB_BEG   10086
 
 //////////////////////////////////////////////////////////////////
 @interface ImgViewInfo : NSObject
 
-@property(strong) NSString * num;
-@property(strong) UIImage * image;
-@property(assign)   int tag;
-@property(assign)   BOOL touchAble;
+@property(assign)   int num;//数字
+@property(assign)   int imgTag;
+@property(assign)   BOOL touchAble;//是否可以移动
+@property(assign)   int repeatCount;// 重复的次数 1表示一次消除   2表示2次消除
+@property(assign)   int repeatNum;//重复的数字
 
 -(void)fromDict:(NSDictionary*)dict;
 
