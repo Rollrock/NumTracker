@@ -102,6 +102,8 @@ typedef enum
 
 -(BOOL)isGameSuccess
 {
+    return NO;
+    
     for( int i = 0; i < [_dataArray count]; ++ i )
     {
         NSString * str = [_dataArray objectAtIndex:i];
@@ -672,6 +674,7 @@ typedef enum
                     if( repeatCount== 0 && ret == 0 )
                     {
                         imgView.image = [UIImage imageNamed:@"success"];
+                        imgView.userInteractionEnabled = NO;
                     }
                     else
                     {
@@ -725,6 +728,7 @@ typedef enum
                     if( repeatCount== 0 && ret == 0 )
                     {
                         imgView.image = [UIImage imageNamed:@"success"];
+                        imgView.userInteractionEnabled = NO;
                     }
                     else
                     {
@@ -745,15 +749,125 @@ typedef enum
 
             }
         }
+        //向左
+        else if( MOVE_LEFT == move)
+        {
+            if( column > 0 )
+            {
+                ImgViewInfo * leftInfo = (ImgViewInfo *)[_InfoArray objectAtIndex:moveTag-1];
+                MyImageView * leftImgView = (MyImageView *)[self.view viewWithTag:moveTag-1+IMG_TAB_BEG];
+                //
+                if( (!leftInfo.touchAble) && (leftInfo.num != INVALIDE_NUM ))
+                {
+                    int repeatCount = leftInfo.repeatCount-1;
+                    int repeatNum = leftInfo.repeatNum;
+                    int ret = moveSum - repeatNum;
+                    
+                    //设置右边的图片
+                    if( repeatCount == 0 )
+                    {
+                        leftImgView.image = [UIImage imageNamed:@"empty"];
+                    }
+                    else if( repeatCount == 1 )
+                    {
+                        leftImgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"num_%d",repeatNum]];
+                    }
+                    else if( repeatCount == 2 )
+                    {
+                        
+                    }
+                    
+                    //移动图片
+                    CGPoint center = imgView.center;
+                    imgView.center = CGPointMake(center.x-IMG_WIDTH, center.y);
+                    if( repeatCount== 0 && ret == 0 )
+                    {
+                        imgView.image = [UIImage imageNamed:@"success"];
+                        imgView.userInteractionEnabled = NO;
+                    }
+                    else
+                    {
+                        imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"move_%d",ret]];
+                    }
+                    imgView.tag = imgView.tag-1;
+                    
+                    //更新数据
+                    moveInfo.num = 0;
+                    [_InfoArray replaceObjectAtIndex:moveTag withObject:moveInfo];
+                    
+                    //
+                    leftInfo.repeatCount = repeatCount;
+                    leftInfo.num = ret;
+                    [_InfoArray replaceObjectAtIndex:moveTag-1 withObject:leftInfo];
+                    
+                }
+                
+            }
+        }
+        //向上
+        else if( MOVE_UP == move )
+        {
+            if( row >0 )
+            {
+                ImgViewInfo * downInfo = (ImgViewInfo *)[_InfoArray objectAtIndex:moveTag-COLUMN_NUM];
+                MyImageView * downImgView = (MyImageView *)[self.view viewWithTag:moveTag-COLUMN_NUM+IMG_TAB_BEG];
+                //
+                if( (!downInfo.touchAble) && (downInfo.num != INVALIDE_NUM ))
+                {
+                    int repeatCount = downInfo.repeatCount-1;
+                    int repeatNum = downInfo.repeatNum;
+                    int ret = moveSum - repeatNum;
+                    
+                    //设置右边的图片
+                    if( repeatCount == 0 )
+                    {
+                        downImgView.image = [UIImage imageNamed:@"empty"];
+                    }
+                    else if( repeatCount == 1 )
+                    {
+                        downImgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"num_%d",repeatNum]];
+                    }
+                    else if( repeatCount == 2 )
+                    {
+                        
+                    }
+                    
+                    //移动图片
+                    CGPoint center = imgView.center;
+                    imgView.center = CGPointMake(center.x, center.y-IMG_WIDTH);
+                    if( repeatCount== 0 && ret == 0 )
+                    {
+                        imgView.image = [UIImage imageNamed:@"success"];
+                        imgView.userInteractionEnabled = NO;
+                    }
+                    else
+                    {
+                        imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"move_%d",ret]];
+                    }
+                    imgView.tag = imgView.tag-COLUMN_NUM;
+                    
+                    //更新数据
+                    moveInfo.num = 0;
+                    [_InfoArray replaceObjectAtIndex:moveTag withObject:moveInfo];
+                    
+                    //
+                    downInfo.repeatCount = repeatCount;
+                    downInfo.num = ret;
+                    [_InfoArray replaceObjectAtIndex:moveTag-COLUMN_NUM withObject:downInfo];
+                    
+                }
 
-        
-        
+            }
+        }
         
     }
     
-    return;
+    if( [self isGameSuccess] )
+    {
+        [self showPassView];
+    }
     
-    
+    /*
     
     ///
     int tag = imgView.tag-IMG_TAB_BEG;
@@ -1012,11 +1126,7 @@ typedef enum
             }
         }
     }
-    
-    if( [self isGameSuccess] )
-    {
-        [self showPassView];
-    }
+     */
 }
 
 -(void)clicked:(CGPoint)pt

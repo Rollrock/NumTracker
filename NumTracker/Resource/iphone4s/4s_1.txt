@@ -1,7 +1,7 @@
 ﻿{
 "data": [
 {
-"value": "20",
+"value": "26",
 "type": "0",
 "repeatCount": "0",
 "repeatNum": "0"
@@ -34,28 +34,28 @@
 
 
 {
-"value": "-999",
-"type": "0",
-"repeatCount": "0",
-"repeatNum": "0"
+"value": "0",
+"type": "1",
+"repeatCount": "1",
+"repeatNum": "3"
 },
 {
-"value": "-999",
-"type": "0",
-"repeatCount": "0",
-"repeatNum": "0"
+"value": "0",
+"type": "1",
+"repeatCount": "1",
+"repeatNum": "4"
 },
 {
-"value": "-999",
-"type": "0",
-"repeatCount": "0",
-"repeatNum": "0"
+"value": "0",
+"type": "1",
+"repeatCount": "2",
+"repeatNum": "3"
 },
 {
-"value": "-999",
-"type": "0",
-"repeatCount": "0",
-"repeatNum": "0"
+"value": "0",
+"type": "1",
+"repeatCount": "1",
+"repeatNum": "4"
 },
 {
 "value": "0",
