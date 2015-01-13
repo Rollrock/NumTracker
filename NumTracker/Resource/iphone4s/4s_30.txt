@@ -7,51 +7,21 @@
         },
         {
             "value": "0",
-            "repeatCount": "0",
-            "repeatNum": "0"
-        },
-        {
-            "value": "0",
-            "repeatCount": "0",
-            "repeatNum": "0"
-        },
-        {
-            "value": "0",
-            "repeatCount": "0",
-            "repeatNum": "0"
-        },
-        {
-            "value": "0",
-            "repeatCount": "0",
-            "repeatNum": "0"
-        },
-
-
-
-
-
-        {
-            "value": "0",
-            "repeatCount": "0",
-            "repeatNum": "0"
-        },
-        {
-            "value": "0",
-            "repeatCount": "1",
+            "repeatCount": "2",
             "repeatNum": "4"
         },
         {
             "value": "0",
             "repeatCount": "2",
-            "repeatNum": "5"
+            "repeatNum": "9"
         },
         {
             "value": "0",
-            "repeatCount": "2",
-            "repeatNum": "8"
+            "repeatCount": "3",
+            "repeatNum": "7"
         },
         {
-            "value": "28",
+            "value": "46",
             "repeatCount": "0",
             "repeatNum": "0"
         },
@@ -61,14 +31,19 @@
 
 
         {
-            "value": "26",
+            "value": "0",
             "repeatCount": "0",
             "repeatNum": "0"
         },
         {
             "value": "0",
             "repeatCount": "2",
-            "repeatNum": "2"
+            "repeatNum": "6"
+        },
+        {
+            "value": "40",
+            "repeatCount": "0",
+            "repeatNum": "0"
         },
         {
             "value": "0",
@@ -78,13 +53,38 @@
         {
             "value": "0",
             "repeatCount": "2",
-            "repeatNum": "7"
+            "repeatNum": "1"
         },
-        {
+
+
+
+
+	{
             "value": "0",
             "repeatCount": "0",
             "repeatNum": "0"
         },
+        {
+            "value": "0",
+            "repeatCount": "1",
+            "repeatNum": "8"
+        },
+        {
+            "value": "0",
+            "repeatCount": "1",
+            "repeatNum": "2"
+        },
+        {
+            "value": "0",
+            "repeatCount": "1",
+            "repeatNum": "5"
+        },
+        {
+            "value": "0",
+            "repeatCount": "1",
+            "repeatNum": "4"
+        },
+        
 
 
 

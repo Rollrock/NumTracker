@@ -102,15 +102,11 @@ typedef enum
 
 -(BOOL)isGameSuccess
 {
-    return NO;
-    
-    for( int i = 0; i < [_dataArray count]; ++ i )
+    for( int i = 0; i < [_InfoArray count]; ++ i )
     {
-        NSString * str = [_dataArray objectAtIndex:i];
+        ImgViewInfo *info = [_InfoArray objectAtIndex:i];
         
-        NSLog(@"str:%@",str);
-        
-        if( ![str isEqualToString:@"-999"] )
+        if( info.num != 0 || info.repeatCount != 0 )
         {
             return NO;
         }
@@ -331,18 +327,17 @@ typedef enum
                     }
                     
                     NSString * value = [subDict objectForKey:@"value"];
-                    NSString * type = [subDict objectForKey:@"type"];
                     NSString * repeatCount = [subDict objectForKey:@"repeatCount"];
                     NSString * repeatNum = [subDict objectForKey:@"repeatNum"];
                     
                     ImgViewInfo * info = [[ImgViewInfo alloc]init];
                     info.num = [value integerValue];
                     
-                    if( [type integerValue] ==  0 )//0 表示可移动项
+                    if( [value integerValue] !=  0 )//0 表示可移动项
                     {
                         info.touchAble = YES;
                         info.repeatCount = 0;
-                        info.repeatNum = INVALIDE_NUM;
+                        info.repeatNum = 0;
                     }
                     else
                     {
@@ -387,7 +382,7 @@ typedef enum
             }
             
             //
-            if( info.num != INVALIDE_NUM )
+            if( (info.num != 0) || (info.repeatCount != 0) )
             {
                 imgView.hidden = YES;
                 [animArray addObject:[NSString stringWithFormat:@"%d",imgView.tag]];
@@ -648,7 +643,7 @@ typedef enum
                 ImgViewInfo * rightInfo = (ImgViewInfo *)[_InfoArray objectAtIndex:moveTag+1];
                 MyImageView * rightImgView = (MyImageView *)[self.view viewWithTag:moveTag+1+IMG_TAB_BEG];
                 //
-                if( (!rightInfo.touchAble) && (rightInfo.num != INVALIDE_NUM ))
+                if( (!rightInfo.touchAble) && (rightInfo.repeatCount != 0 ))
                 {
                     int repeatCount = rightInfo.repeatCount-1;
                     int repeatNum = rightInfo.repeatNum;
@@ -671,15 +666,25 @@ typedef enum
                     //移动图片
                     CGPoint center = imgView.center;
                     imgView.center = CGPointMake(center.x+IMG_WIDTH, center.y);
-                    if( repeatCount== 0 && ret == 0 )
+                    
+                    if( repeatCount == 0 && ret == 0 )
                     {
                         imgView.image = [UIImage imageNamed:@"success"];
+                        imgView.bTouch = NO;
                         imgView.userInteractionEnabled = NO;
                     }
                     else
                     {
-                        imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"move_%d",ret]];
+                        if( ret > 0 )
+                        {
+                            imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"move_%d",ret]];
+                        }
+                        else
+                        {
+                            imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"d_move_%d",abs(ret)]];
+                        }
                     }
+                    
                     imgView.tag = imgView.tag+1;
                     
                     //更新数据
@@ -689,6 +694,7 @@ typedef enum
                     //
                     rightInfo.repeatCount = repeatCount;
                     rightInfo.num = ret;
+                    
                     [_InfoArray replaceObjectAtIndex:moveTag+1 withObject:rightInfo];
                     
                 }
@@ -702,7 +708,7 @@ typedef enum
                 ImgViewInfo * downInfo = (ImgViewInfo *)[_InfoArray objectAtIndex:moveTag+COLUMN_NUM];
                 MyImageView * downImgView = (MyImageView *)[self.view viewWithTag:moveTag+COLUMN_NUM+IMG_TAB_BEG];
                 //
-                if( (!downInfo.touchAble) && (downInfo.num != INVALIDE_NUM ))
+                if( (!downInfo.touchAble) && (downInfo.repeatCount != 0 ))
                 {
                     int repeatCount = downInfo.repeatCount-1;
                     int repeatNum = downInfo.repeatNum;
@@ -728,11 +734,20 @@ typedef enum
                     if( repeatCount== 0 && ret == 0 )
                     {
                         imgView.image = [UIImage imageNamed:@"success"];
+                        imgView.bTouch = NO;
                         imgView.userInteractionEnabled = NO;
                     }
                     else
                     {
-                        imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"move_%d",ret]];
+                        if( ret > 0 )
+                        {
+                            imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"move_%d",ret]];
+                        }
+                        else
+                        {
+                            imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"d_move_%d",abs(ret)]];
+                        }
+
                     }
                     imgView.tag = imgView.tag+COLUMN_NUM;
                     
@@ -743,10 +758,10 @@ typedef enum
                     //
                     downInfo.repeatCount = repeatCount;
                     downInfo.num = ret;
+                    
                     [_InfoArray replaceObjectAtIndex:moveTag+COLUMN_NUM withObject:downInfo];
                     
                 }
-
             }
         }
         //向左
@@ -757,7 +772,7 @@ typedef enum
                 ImgViewInfo * leftInfo = (ImgViewInfo *)[_InfoArray objectAtIndex:moveTag-1];
                 MyImageView * leftImgView = (MyImageView *)[self.view viewWithTag:moveTag-1+IMG_TAB_BEG];
                 //
-                if( (!leftInfo.touchAble) && (leftInfo.num != INVALIDE_NUM ))
+                if( (!leftInfo.touchAble) && (leftInfo.repeatCount != 0 ))
                 {
                     int repeatCount = leftInfo.repeatCount-1;
                     int repeatNum = leftInfo.repeatNum;
@@ -767,7 +782,7 @@ typedef enum
                     if( repeatCount == 0 )
                     {
                         leftImgView.image = [UIImage imageNamed:@"empty"];
-                    }
+                     }
                     else if( repeatCount == 1 )
                     {
                         leftImgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"num_%d",repeatNum]];
@@ -783,11 +798,20 @@ typedef enum
                     if( repeatCount== 0 && ret == 0 )
                     {
                         imgView.image = [UIImage imageNamed:@"success"];
+                        imgView.bTouch = NO;
                         imgView.userInteractionEnabled = NO;
                     }
                     else
                     {
-                        imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"move_%d",ret]];
+                        if( ret > 0 )
+                        {
+                            imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"move_%d",ret]];
+                        }
+                        else
+                        {
+                            imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"d_move_%d",abs(ret)]];
+                        }
+
                     }
                     imgView.tag = imgView.tag-1;
                     
@@ -798,10 +822,9 @@ typedef enum
                     //
                     leftInfo.repeatCount = repeatCount;
                     leftInfo.num = ret;
-                    [_InfoArray replaceObjectAtIndex:moveTag-1 withObject:leftInfo];
                     
+                    [_InfoArray replaceObjectAtIndex:moveTag-1 withObject:leftInfo];
                 }
-                
             }
         }
         //向上
@@ -812,7 +835,7 @@ typedef enum
                 ImgViewInfo * downInfo = (ImgViewInfo *)[_InfoArray objectAtIndex:moveTag-COLUMN_NUM];
                 MyImageView * downImgView = (MyImageView *)[self.view viewWithTag:moveTag-COLUMN_NUM+IMG_TAB_BEG];
                 //
-                if( (!downInfo.touchAble) && (downInfo.num != INVALIDE_NUM ))
+                if( (!downInfo.touchAble) && (downInfo.repeatCount != 0 ))
                 {
                     int repeatCount = downInfo.repeatCount-1;
                     int repeatNum = downInfo.repeatNum;
@@ -838,11 +861,20 @@ typedef enum
                     if( repeatCount== 0 && ret == 0 )
                     {
                         imgView.image = [UIImage imageNamed:@"success"];
+                        imgView.bTouch = NO;
                         imgView.userInteractionEnabled = NO;
                     }
                     else
                     {
-                        imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"move_%d",ret]];
+                        if( ret > 0 )
+                        {
+                            imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"move_%d",ret]];
+                        }
+                        else
+                        {
+                            imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"d_move_%d",abs(ret)]];
+                        }
+
                     }
                     imgView.tag = imgView.tag-COLUMN_NUM;
                     
@@ -853,280 +885,29 @@ typedef enum
                     //
                     downInfo.repeatCount = repeatCount;
                     downInfo.num = ret;
+                    
                     [_InfoArray replaceObjectAtIndex:moveTag-COLUMN_NUM withObject:downInfo];
                     
                 }
 
             }
         }
-        
     }
+    
+    
+    for( int i = 0; i < [_InfoArray count]; ++ i )
+    {
+        ImgViewInfo * info = [_InfoArray objectAtIndex:i];
+        NSLog(@"num:%d repeatCount:%d repeatNum:%d",info.num,info.repeatCount,info.repeatNum);
+    }
+    
+    
     
     if( [self isGameSuccess] )
     {
         [self showPassView];
     }
     
-    /*
-    
-    ///
-    int tag = imgView.tag-IMG_TAB_BEG;
-    int sum = [[_dataArray objectAtIndex:tag] intValue]-1000;
-    int row,column;
-    
-    row = tag/COLUMN_NUM;
-    column = tag%COLUMN_NUM;
-    
-    NSLog(@"row:%d column:%d tag:%d",row,column,tag);
-    
-    //往右
-    if( MOVE_RIGHT == move)
-    {
-        if( column < COLUMN_NUM - 1 )
-        {
-            int num = [[_dataArray objectAtIndex:tag+1]intValue];
-            
-            if( (num >= 1 && num <= 9) || (num>= 500 && num <= 600))
-            {
-                if( num >= 1 && num <= 9 )
-                {
-                    sum -= num;
-                    ((UIImageView*)[self.view viewWithTag:tag+1+IMG_TAB_BEG]).image = [UIImage imageNamed:@"empty"];
-                }
-                else if( num >= 500 && num < 600 )
-                {
-                    sum -= num-500;
-                    ((UIImageView*)[self.view viewWithTag:tag+1+IMG_TAB_BEG]).image = [UIImage imageNamed:[NSString stringWithFormat:@"num_%d",num-500]];
-                }
-                
-                NSLog(@"sun:%d",sum);
-                
-                CGPoint pt = imgView.center;
-                imgView.center = CGPointMake(pt.x+IMG_WIDTH, pt.y);
-                imgView.tag = tag+1+IMG_TAB_BEG;
-                
-                [_dataArray replaceObjectAtIndex:tag withObject:@"-999"];
-                [_dataArray replaceObjectAtIndex:tag+1 withObject:[NSString stringWithFormat:@"%d",sum+1000]];
-                
-                int sp = [[_spDataArray objectAtIndex:tag] intValue];
-                if( sp > 0 )
-                {
-                    [_dataArray replaceObjectAtIndex:tag withObject:[NSString stringWithFormat:@"%d",sp]];
-                    [_spDataArray replaceObjectAtIndex:tag withObject:@"-999"];
-                }
-                
-                if( sum > 0 )
-                {
-                    imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"move_%d",sum]];
-                }
-                else if( sum == 0 )
-                {
-                    if( num >= 1 && num <= 9 )
-                    {
-                        [_dataArray replaceObjectAtIndex:tag+1 withObject:[NSString stringWithFormat:@"%d",-999]];
-                        imgView.image = [UIImage imageNamed:@"success"];
-                        imgView.userInteractionEnabled = NO;
-                        
-                        imgView.bTouch = NO;
-                    }
-                    
-                }
-                else
-                {
-                    imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"d_move_%d",abs(sum)]];
-                }
-                
-                
-                [self clicked:imgView.center];
-            }
-        }
-    }
-    else if( MOVE_DONW == move )
-    {
-        if( row < ROW_NUM - 1 )
-        {
-            int num = [[_dataArray objectAtIndex:tag+COLUMN_NUM]intValue];
-            
-            if( (num >= 1 && num <= 9 )||(num>= 500 && num <= 600))
-            {
-                if( num >= 1 && num <= 9)
-                {
-                    sum -= num;
-                    ((UIImageView*)[self.view viewWithTag:tag+COLUMN_NUM+IMG_TAB_BEG]).image = [UIImage imageNamed:@"empty"];
-                }
-                else if(num>= 500 && num <= 600)
-                {
-                    sum -= num-500;
-                    ((UIImageView*)[self.view viewWithTag:tag+COLUMN_NUM+IMG_TAB_BEG]).image = [UIImage imageNamed:[NSString stringWithFormat:@"num_%d",num-500]];
-                }
-                
-                NSLog(@"sun:%d",sum);
-                
-                CGPoint pt = imgView.center;
-                imgView.center = CGPointMake(pt.x, pt.y+IMG_WIDTH);
-                imgView.tag = tag+COLUMN_NUM+IMG_TAB_BEG;
-                
-                
-                [_dataArray replaceObjectAtIndex:tag withObject:@"-999"];
-                [_dataArray replaceObjectAtIndex:tag+COLUMN_NUM withObject:[NSString stringWithFormat:@"%d",sum+1000]];
-                
-                int sp = [[_spDataArray objectAtIndex:tag] intValue];
-                if( sp > 0 )
-                {
-                    [_dataArray replaceObjectAtIndex:tag withObject:[NSString stringWithFormat:@"%d",sp]];
-                    [_spDataArray replaceObjectAtIndex:tag withObject:@"-999"];
-                }
-                
-                if( sum > 0 )
-                {
-                    imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"move_%d",sum]];
-                }
-                else if( sum == 0 )
-                {
-                    if( num >= 1 && num <= 9 )
-                    {
-                        [_dataArray replaceObjectAtIndex:tag+COLUMN_NUM withObject:[NSString stringWithFormat:@"%d",-999]];
-                        imgView.image = [UIImage imageNamed:@"success"];
-                        imgView.userInteractionEnabled = NO;
-                        
-                        imgView.bTouch = NO;
-                    }
-                    
-                }
-                else
-                {
-                    imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"d_move_%d",abs(sum)]];
-                }
-
-                [self clicked:imgView.center];
-            }
-        }
-    }
-    //向左
-    else if( MOVE_LEFT == move)
-    {
-        if( column > 0 )
-        {
-            int num = [[_dataArray objectAtIndex:tag-1]intValue];
-            
-            //
-            
-            if((num >= 1 && num <= 9 ) || ( num >= 500 && num <= 600))
-            {
-                if(num >= 1 && num <= 9 )
-                {
-                     sum -= num;
-                    ((UIImageView*)[self.view viewWithTag:tag-1+IMG_TAB_BEG]).image = [UIImage imageNamed:@"empty"];
-
-                }
-                else if( num >= 500 && num <= 600)
-                {
-                    sum -= num-500;
-                    ((UIImageView*)[self.view viewWithTag:tag-1+IMG_TAB_BEG]).image = [UIImage imageNamed:[NSString stringWithFormat:@"num_%d",num-500]];
-                }
-                
-               
-                NSLog(@"sun:%d",sum);
-                
-                CGPoint pt = imgView.center;
-                imgView.center = CGPointMake(pt.x-IMG_WIDTH, pt.y);
-                imgView.tag = tag-1+IMG_TAB_BEG;
-                
-                [_dataArray replaceObjectAtIndex:tag withObject:@"-999"];
-                [_dataArray replaceObjectAtIndex:tag-1 withObject:[NSString stringWithFormat:@"%d",sum+1000]];
-                
-                
-                int sp = [[_spDataArray objectAtIndex:tag] intValue];
-                if( sp > 0 )
-                {
-                    [_dataArray replaceObjectAtIndex:tag withObject:[NSString stringWithFormat:@"%d",sp]];
-                    [_spDataArray replaceObjectAtIndex:tag withObject:@"-999"];
-                }
-                
-                if( sum > 0 )
-                {
-                    imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"move_%d",sum]];
-                }
-                else if( sum == 0 )
-                {
-                    if(num >= 1 && num <= 9)
-                    {
-                        [_dataArray replaceObjectAtIndex:tag-1 withObject:[NSString stringWithFormat:@"%d",-999]];
-                        imgView.image = [UIImage imageNamed:@"success"];
-                        imgView.userInteractionEnabled = NO;
-                        
-                        imgView.bTouch = NO;
-                    }
-                }
-                else
-                {
-                    imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"d_move_%d",abs(sum)]];
-                }
-                
-                [self clicked:imgView.center];
-            }
-        }
-    }
-    else if( MOVE_UP == move )
-    {
-        if( row >0 )
-        {
-            int num = [[_dataArray objectAtIndex:tag-COLUMN_NUM]intValue];
-            
-            if( (num >= 1 && num <= 9) || (num >= 500 && num <= 600))
-            {
-                if(num >= 1 && num <= 9)
-                {
-                    sum -= num;
-                    ((UIImageView*)[self.view viewWithTag:tag-COLUMN_NUM+IMG_TAB_BEG]).image = [UIImage imageNamed:@"empty"];
-                }
-                else if(num >= 500 && num <= 600)
-                {
-                    sum -= num-500;
-                    ((UIImageView*)[self.view viewWithTag:tag-COLUMN_NUM+IMG_TAB_BEG]).image = [UIImage imageNamed:[NSString stringWithFormat:@"num_%d",num-500]];
-                }
-                
-                NSLog(@"sun:%d",sum);
-                
-                CGPoint pt = imgView.center;
-                imgView.center = CGPointMake(pt.x, pt.y-IMG_WIDTH);
-                imgView.tag = tag-COLUMN_NUM+IMG_TAB_BEG;
-                
-                [_dataArray replaceObjectAtIndex:tag withObject:@"-999"];
-                [_dataArray replaceObjectAtIndex:tag-COLUMN_NUM withObject:[NSString stringWithFormat:@"%d",sum+1000]];
-                
-                int sp = [[_spDataArray objectAtIndex:tag] intValue];
-                if( sp > 0 )
-                {
-                    [_dataArray replaceObjectAtIndex:tag withObject:[NSString stringWithFormat:@"%d",sp]];
-                    [_spDataArray replaceObjectAtIndex:tag withObject:@"-999"];
-                }
-
-                if( sum > 0 )
-                {
-                    imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"move_%d",sum]];
-                }
-                else if( sum == 0 )
-                {
-                    if( num >= 1 && num <= 9 )
-                    {
-                        [_dataArray replaceObjectAtIndex:tag-COLUMN_NUM withObject:[NSString stringWithFormat:@"%d",-999]];
-                        imgView.image = [UIImage imageNamed:@"success"];
-                        imgView.userInteractionEnabled = NO;
-                        
-                        imgView.bTouch = NO;
-                    }
-                }
-                else
-                {
-                    imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"d_move_%d",abs(sum)]];
-                }
-
-                [self clicked:imgView.center];
-            }
-        }
-    }
-     */
 }
 
 -(void)clicked:(CGPoint)pt
