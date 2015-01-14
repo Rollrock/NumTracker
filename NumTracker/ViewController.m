@@ -187,19 +187,7 @@ typedef enum
         nextBtnRect= CGRectMake(190, 330, 100, 40);
 
     }
-    else if( _iphoneType == IPHONE_6 )
-    {
-        _baduViewYPos = 100;
-        againBtnRect= CGRectMake(50, 410, 100, 40);
-        nextBtnRect= CGRectMake(220, 410, 100, 40);
-    }
-    else if( _iphoneType == IPHONE_6P )
-    {
-        _baduViewYPos = 20;
-        againBtnRect= CGRectMake(70, 540, 100, 40);
-        nextBtnRect= CGRectMake(240, 540, 100, 40);
-
-    }
+    
     
     _passView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 0, 0)];
     _passView.backgroundColor = [UIColor grayColor];
@@ -289,17 +277,9 @@ typedef enum
     {
         strPass = [NSString stringWithFormat:@"4s_%@.txt",[self getCurPass]];
     }
-    else if( _iphoneType == IPHONE_5 )
+    else if( _iphoneType == IPHONE_5 ||_iphoneType == IPHONE_6 || _iphoneType == IPHONE_6P )
     {
         strPass = [NSString stringWithFormat:@"5_%@.txt",[self getCurPass]];
-    }
-    else if( _iphoneType == IPHONE_6 )
-    {
-        strPass = [NSString stringWithFormat:@"6_%@.txt",[self getCurPass]];
-    }
-    else if( _iphoneType == IPHONE_6P )
-    {
-        strPass = [NSString stringWithFormat:@"6p_%@.txt",[self getCurPass]];
     }
 
     
@@ -331,7 +311,7 @@ typedef enum
                     NSString * repeatNum = [subDict objectForKey:@"repeatNum"];
                     
                     ImgViewInfo * info = [[ImgViewInfo alloc]init];
-                    info.num = [value integerValue];
+                    info.num = [value intValue];
                     
                     if( [value integerValue] !=  0 )//0 表示可移动项
                     {
@@ -342,8 +322,8 @@ typedef enum
                     else
                     {
                         info.touchAble = NO;
-                        info.repeatCount = [repeatCount integerValue];
-                        info.repeatNum = [repeatNum integerValue];
+                        info.repeatCount = [repeatCount intValue];
+                        info.repeatNum = [repeatNum intValue];
                     }
             
                     info.imgTag = tag++;
@@ -451,7 +431,7 @@ typedef enum
 {
     if( 0 == btn.tag )
     {
-        AboutViewController * vc = [[AboutViewController alloc]init];
+        AboutViewController * vc = [[AboutViewController alloc]initWithNibName:@"AboutViewController" bundle:nil];
         [self presentViewController:vc animated:YES completion:nil];
     }
     else if( 1 == btn.tag )
@@ -565,6 +545,8 @@ typedef enum
 {
     if( _iphoneType == IPHONE_4 )
     {
+        IMG_WIDTH = 60.0f;
+        
         X_BEGIN_POS = 10;
         Y_BEGIN_POS = 70;
         
@@ -573,6 +555,8 @@ typedef enum
     }
     else if( _iphoneType == IPHONE_5 )
     {
+        IMG_WIDTH = 60.0f;
+        
         X_BEGIN_POS = 10;
         Y_BEGIN_POS = 70;
         
@@ -581,19 +565,23 @@ typedef enum
     }
     else if( _iphoneType == IPHONE_6 )
     {
+        IMG_WIDTH = 70.0f;
+        
         X_BEGIN_POS = 5;
         Y_BEGIN_POS = 70;
         
-        ROW_NUM = 7;
-        COLUMN_NUM = 6;
+        ROW_NUM = 6;
+        COLUMN_NUM = 5;
     }
     else if( _iphoneType == IPHONE_6P )
     {
+        IMG_WIDTH = 77.0f;
+        
         X_BEGIN_POS = 30;
         Y_BEGIN_POS = 70;
         
-        ROW_NUM = 9;
-        COLUMN_NUM = 6;
+        ROW_NUM = 6;
+        COLUMN_NUM = 5;
     }
 
 }
@@ -901,8 +889,7 @@ typedef enum
         NSLog(@"num:%d repeatCount:%d repeatNum:%d",info.num,info.repeatCount,info.repeatNum);
     }
     
-    
-    
+
     if( [self isGameSuccess] )
     {
         [self showPassView];
