@@ -67,7 +67,7 @@
         },
         {
             "value": "0",
-            "repeatCount": "2",
+            "repeatCount": "1",
             "repeatNum": "4"
         },
         {

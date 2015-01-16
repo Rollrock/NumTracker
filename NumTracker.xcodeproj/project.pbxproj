@@ -7,6 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		480EC1881A693F20001D5263 /* next.png in Resources */ = {isa = PBXBuildFile; fileRef = 480EC1861A693F20001D5263 /* next.png */; };
+		480EC1891A693F20001D5263 /* refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 480EC1871A693F20001D5263 /* refresh.png */; };
+		480EC1941A693F4E001D5263 /* 1024_1024.png in Resources */ = {isa = PBXBuildFile; fileRef = 480EC18B1A693F4E001D5263 /* 1024_1024.png */; };
+		480EC1951A693F4E001D5263 /* 120_120.png in Resources */ = {isa = PBXBuildFile; fileRef = 480EC18C1A693F4E001D5263 /* 120_120.png */; };
+		480EC1961A693F4E001D5263 /* 152_152.png in Resources */ = {isa = PBXBuildFile; fileRef = 480EC18D1A693F4E001D5263 /* 152_152.png */; };
+		480EC1971A693F4E001D5263 /* 29_29.png in Resources */ = {isa = PBXBuildFile; fileRef = 480EC18E1A693F4E001D5263 /* 29_29.png */; };
+		480EC1981A693F4E001D5263 /* 40_40.png in Resources */ = {isa = PBXBuildFile; fileRef = 480EC18F1A693F4E001D5263 /* 40_40.png */; };
+		480EC1991A693F4E001D5263 /* 512_512.png in Resources */ = {isa = PBXBuildFile; fileRef = 480EC1901A693F4E001D5263 /* 512_512.png */; };
+		480EC19A1A693F4E001D5263 /* 58_58.png in Resources */ = {isa = PBXBuildFile; fileRef = 480EC1911A693F4E001D5263 /* 58_58.png */; };
+		480EC19B1A693F4E001D5263 /* 76_76.png in Resources */ = {isa = PBXBuildFile; fileRef = 480EC1921A693F4E001D5263 /* 76_76.png */; };
+		480EC19C1A693F4E001D5263 /* 80_80.png in Resources */ = {isa = PBXBuildFile; fileRef = 480EC1931A693F4E001D5263 /* 80_80.png */; };
+		480EC19F1A694303001D5263 /* 87.png in Resources */ = {isa = PBXBuildFile; fileRef = 480EC19D1A694303001D5263 /* 87.png */; };
+		480EC1A01A694303001D5263 /* 180.png in Resources */ = {isa = PBXBuildFile; fileRef = 480EC19E1A694303001D5263 /* 180.png */; };
+		480EC1A51A6949ED001D5263 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 480EC1A21A6949ED001D5263 /* SVProgressHUD.bundle */; };
+		480EC1A61A6949ED001D5263 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 480EC1A41A6949ED001D5263 /* SVProgressHUD.m */; };
 		480FAC8E1A54358500C41BDA /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 480FAC8D1A54358500C41BDA /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		48225BF01A6553AC0032400B /* 4s_1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 48225BC81A6553AC0032400B /* 4s_1.txt */; };
 		48225BF11A6553AC0032400B /* 4s_10.txt in Resources */ = {isa = PBXBuildFile; fileRef = 48225BC91A6553AC0032400B /* 4s_10.txt */; };
@@ -284,7 +299,6 @@
 		48347FA61A61376700784EF0 /* 6p_1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 48347FA41A61376700784EF0 /* 6p_1.txt */; };
 		48347FAA1A6153B400784EF0 /* PassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48347FA81A6153B400784EF0 /* PassViewController.m */; };
 		48347FAB1A6153B400784EF0 /* PassViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48347FA91A6153B400784EF0 /* PassViewController.xib */; };
-		48347FAE1A627E6F00784EF0 /* MyPayMent.m in Sources */ = {isa = PBXBuildFile; fileRef = 48347FAD1A627E6F00784EF0 /* MyPayMent.m */; };
 		48347FC31A62D9E000784EF0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 48347FC51A62D9E000784EF0 /* Localizable.strings */; };
 		486AE5F31A52EA72002E75C6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 486AE5F21A52EA72002E75C6 /* main.m */; };
 		486AE5F61A52EA72002E75C6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 486AE5F51A52EA72002E75C6 /* AppDelegate.m */; };
@@ -308,6 +322,22 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		480EC1861A693F20001D5263 /* next.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = next.png; sourceTree = "<group>"; };
+		480EC1871A693F20001D5263 /* refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = refresh.png; sourceTree = "<group>"; };
+		480EC18B1A693F4E001D5263 /* 1024_1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1024_1024.png; sourceTree = "<group>"; };
+		480EC18C1A693F4E001D5263 /* 120_120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 120_120.png; sourceTree = "<group>"; };
+		480EC18D1A693F4E001D5263 /* 152_152.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 152_152.png; sourceTree = "<group>"; };
+		480EC18E1A693F4E001D5263 /* 29_29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 29_29.png; sourceTree = "<group>"; };
+		480EC18F1A693F4E001D5263 /* 40_40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 40_40.png; sourceTree = "<group>"; };
+		480EC1901A693F4E001D5263 /* 512_512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 512_512.png; sourceTree = "<group>"; };
+		480EC1911A693F4E001D5263 /* 58_58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 58_58.png; sourceTree = "<group>"; };
+		480EC1921A693F4E001D5263 /* 76_76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 76_76.png; sourceTree = "<group>"; };
+		480EC1931A693F4E001D5263 /* 80_80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 80_80.png; sourceTree = "<group>"; };
+		480EC19D1A694303001D5263 /* 87.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 87.png; sourceTree = "<group>"; };
+		480EC19E1A694303001D5263 /* 180.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 180.png; sourceTree = "<group>"; };
+		480EC1A21A6949ED001D5263 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
+		480EC1A31A6949ED001D5263 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
+		480EC1A41A6949ED001D5263 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
 		480FAC8C1A54358500C41BDA /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		480FAC8D1A54358500C41BDA /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		48225BC81A6553AC0032400B /* 4s_1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 4s_1.txt; sourceTree = "<group>"; };
@@ -628,8 +658,6 @@
 		48347FA71A6153B400784EF0 /* PassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassViewController.h; sourceTree = "<group>"; };
 		48347FA81A6153B400784EF0 /* PassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassViewController.m; sourceTree = "<group>"; };
 		48347FA91A6153B400784EF0 /* PassViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PassViewController.xib; sourceTree = "<group>"; };
-		48347FAC1A627E6F00784EF0 /* MyPayMent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPayMent.h; sourceTree = "<group>"; };
-		48347FAD1A627E6F00784EF0 /* MyPayMent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPayMent.m; sourceTree = "<group>"; };
 		48347FC11A62D96300784EF0 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		48347FC21A62D96300784EF0 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		48347FC41A62D9E000784EF0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -693,6 +721,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		480EC18A1A693F4E001D5263 /* icon */ = {
+			isa = PBXGroup;
+			children = (
+				480EC19D1A694303001D5263 /* 87.png */,
+				480EC19E1A694303001D5263 /* 180.png */,
+				480EC18B1A693F4E001D5263 /* 1024_1024.png */,
+				480EC18C1A693F4E001D5263 /* 120_120.png */,
+				480EC18D1A693F4E001D5263 /* 152_152.png */,
+				480EC18E1A693F4E001D5263 /* 29_29.png */,
+				480EC18F1A693F4E001D5263 /* 40_40.png */,
+				480EC1901A693F4E001D5263 /* 512_512.png */,
+				480EC1911A693F4E001D5263 /* 58_58.png */,
+				480EC1921A693F4E001D5263 /* 76_76.png */,
+				480EC1931A693F4E001D5263 /* 80_80.png */,
+			);
+			path = icon;
+			sourceTree = "<group>";
+		};
+		480EC1A11A6949ED001D5263 /* SVProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				480EC1A21A6949ED001D5263 /* SVProgressHUD.bundle */,
+				480EC1A31A6949ED001D5263 /* SVProgressHUD.h */,
+				480EC1A41A6949ED001D5263 /* SVProgressHUD.m */,
+			);
+			path = SVProgressHUD;
+			sourceTree = "<group>";
+		};
 		480FAC8B1A54358500C41BDA /* JSONKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -799,6 +855,9 @@
 		482338691A5EA5CD00F35E44 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				480EC18A1A693F4E001D5263 /* icon */,
+				480EC1861A693F20001D5263 /* next.png */,
+				480EC1871A693F20001D5263 /* refresh.png */,
 				48225C751A668D1D0032400B /* 1024_1024.png */,
 				48347F9C1A60401300784EF0 /* back.png */,
 				4823386A1A5EA5CD00F35E44 /* base.png */,
@@ -1167,8 +1226,6 @@
 				486AE5F01A52EA72002E75C6 /* Supporting Files */,
 				486AE6161A52EB03002E75C6 /* MyImageView.h */,
 				486AE6171A52EB03002E75C6 /* MyImageView.m */,
-				48347FAC1A627E6F00784EF0 /* MyPayMent.h */,
-				48347FAD1A627E6F00784EF0 /* MyPayMent.m */,
 				48347FC51A62D9E000784EF0 /* Localizable.strings */,
 			);
 			path = NumTracker;
@@ -1177,6 +1234,7 @@
 		486AE5F01A52EA72002E75C6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				480EC1A11A6949ED001D5263 /* SVProgressHUD */,
 				482339E11A5ED96500F35E44 /* ios_api */,
 				482343F51A5C3264008694CD /* WeChatSDK */,
 				482343B91A5ABC50008694CD /* admob */,
@@ -1330,7 +1388,9 @@
 				4823391D1A5EA5CD00F35E44 /* d_move_34.png in Resources */,
 				4823392B1A5EA5CD00F35E44 /* d_move_47.png in Resources */,
 				4823396F1A5EA5CD00F35E44 /* move_40.png in Resources */,
+				480EC1961A693F4E001D5263 /* 152_152.png in Resources */,
 				48225C141A6553AC0032400B /* 4s_6.txt in Resources */,
+				480EC1881A693F20001D5263 /* next.png in Resources */,
 				48225C6A1A6573FA0032400B /* 4s_40.txt in Resources */,
 				4823390F1A5EA5CD00F35E44 /* d_move_21.png in Resources */,
 				4823395E1A5EA5CD00F35E44 /* move_25.png in Resources */,
@@ -1353,6 +1413,7 @@
 				482339061A5EA5CD00F35E44 /* d_move_13.png in Resources */,
 				48225C681A6573FA0032400B /* 4s_39.txt in Resources */,
 				4823390B1A5EA5CD00F35E44 /* d_move_18.png in Resources */,
+				480EC1891A693F20001D5263 /* refresh.png in Resources */,
 				48225C011A6553AC0032400B /* 4s_25.txt in Resources */,
 				482339911A5EA5CD00F35E44 /* num_8.png in Resources */,
 				482339561A5EA5CD00F35E44 /* move_18.png in Resources */,
@@ -1415,6 +1476,7 @@
 				48225C601A6573FA0032400B /* 4s_31.txt in Resources */,
 				4823396A1A5EA5CD00F35E44 /* move_36.png in Resources */,
 				48225BFC1A6553AC0032400B /* 4s_20.txt in Resources */,
+				480EC19C1A693F4E001D5263 /* 80_80.png in Resources */,
 				4823394F1A5EA5CD00F35E44 /* move_11.png in Resources */,
 				482339821A5EA5CD00F35E44 /* num_11.png in Resources */,
 				482339681A5EA5CD00F35E44 /* move_34.png in Resources */,
@@ -1422,10 +1484,12 @@
 				48225BF51A6553AC0032400B /* 4s_14.txt in Resources */,
 				4823393B1A5EA5CD00F35E44 /* j_num_11.png in Resources */,
 				48225C131A6553AC0032400B /* 4s_5.txt in Resources */,
+				480EC19F1A694303001D5263 /* 87.png in Resources */,
 				4823396D1A5EA5CD00F35E44 /* move_39.png in Resources */,
 				4823391C1A5EA5CD00F35E44 /* d_move_33.png in Resources */,
 				482339201A5EA5CD00F35E44 /* d_move_37.png in Resources */,
 				482339861A5EA5CD00F35E44 /* num_15.png in Resources */,
+				480EC1971A693F4E001D5263 /* 29_29.png in Resources */,
 				4823393C1A5EA5CD00F35E44 /* j_num_12.png in Resources */,
 				4823393A1A5EA5CD00F35E44 /* j_num_10.png in Resources */,
 				4823392C1A5EA5CD00F35E44 /* d_move_48.png in Resources */,
@@ -1441,6 +1505,7 @@
 				48225BF31A6553AC0032400B /* 4s_12.txt in Resources */,
 				48225C491A6573FA0032400B /* 4s_10.txt in Resources */,
 				482339141A5EA5CD00F35E44 /* d_move_26.png in Resources */,
+				480EC1A51A6949ED001D5263 /* SVProgressHUD.bundle in Resources */,
 				48225BFA1A6553AC0032400B /* 4s_19.txt in Resources */,
 				4823398D1A5EA5CD00F35E44 /* num_4.png in Resources */,
 				48225BFB1A6553AC0032400B /* 4s_2.txt in Resources */,
@@ -1450,8 +1515,11 @@
 				4823391F1A5EA5CD00F35E44 /* d_move_36.png in Resources */,
 				48225C4A1A6573FA0032400B /* 4s_11.txt in Resources */,
 				48225BFF1A6553AC0032400B /* 4s_23.txt in Resources */,
+				480EC19A1A693F4E001D5263 /* 58_58.png in Resources */,
 				48225C0B1A6553AC0032400B /* 4s_34.txt in Resources */,
+				480EC1951A693F4E001D5263 /* 120_120.png in Resources */,
 				482339651A5EA5CD00F35E44 /* move_31.png in Resources */,
+				480EC1991A693F4E001D5263 /* 512_512.png in Resources */,
 				482339041A5EA5CD00F35E44 /* d_move_11.png in Resources */,
 				48225C551A6573FA0032400B /* 4s_21.txt in Resources */,
 				482339841A5EA5CD00F35E44 /* num_13.png in Resources */,
@@ -1468,6 +1536,7 @@
 				4823398C1A5EA5CD00F35E44 /* num_3.png in Resources */,
 				482339851A5EA5CD00F35E44 /* num_14.png in Resources */,
 				4823393F1A5EA5CD00F35E44 /* j_num_15.png in Resources */,
+				480EC1941A693F4E001D5263 /* 1024_1024.png in Resources */,
 				482339191A5EA5CD00F35E44 /* d_move_30.png in Resources */,
 				48225C531A6573FA0032400B /* 4s_2.txt in Resources */,
 				48225C5F1A6573FA0032400B /* 4s_30.txt in Resources */,
@@ -1488,6 +1557,7 @@
 				482339001A5EA5CD00F35E44 /* base.png in Resources */,
 				482339791A5EA5CD00F35E44 /* move_5.png in Resources */,
 				48225BFE1A6553AC0032400B /* 4s_22.txt in Resources */,
+				480EC1981A693F4E001D5263 /* 40_40.png in Resources */,
 				4823391B1A5EA5CD00F35E44 /* d_move_32.png in Resources */,
 				48225C041A6553AC0032400B /* 4s_28.txt in Resources */,
 				482339881A5EA5CD00F35E44 /* num_17.png in Resources */,
@@ -1513,6 +1583,7 @@
 				48225C631A6573FA0032400B /* 4s_34.txt in Resources */,
 				4823394E1A5EA5CD00F35E44 /* move_10.png in Resources */,
 				48225C081A6553AC0032400B /* 4s_31.txt in Resources */,
+				480EC1A01A694303001D5263 /* 180.png in Resources */,
 				48225C541A6573FA0032400B /* 4s_20.txt in Resources */,
 				4823394C1A5EA5CD00F35E44 /* move_0.png in Resources */,
 				482339441A5EA5CD00F35E44 /* j_num_2.png in Resources */,
@@ -1532,6 +1603,7 @@
 				482339421A5EA5CD00F35E44 /* j_num_18.png in Resources */,
 				48225C0E1A6553AC0032400B /* 4s_37.txt in Resources */,
 				482339231A5EA5CD00F35E44 /* d_move_4.png in Resources */,
+				480EC19B1A693F4E001D5263 /* 76_76.png in Resources */,
 				482339531A5EA5CD00F35E44 /* move_15.png in Resources */,
 				48225C021A6553AC0032400B /* 4s_26.txt in Resources */,
 				4823390A1A5EA5CD00F35E44 /* d_move_17.png in Resources */,
@@ -1566,6 +1638,7 @@
 				486AE5F91A52EA72002E75C6 /* ViewController.m in Sources */,
 				48233A1B1A5ED96500F35E44 /* mongoose.c in Sources */,
 				48233A251A5ED96500F35E44 /* CJSONScanner.m in Sources */,
+				480EC1A61A6949ED001D5263 /* SVProgressHUD.m in Sources */,
 				48233A1C1A5ED96500F35E44 /* OpenUDID.m in Sources */,
 				48233A1E1A5ED96500F35E44 /* CFilteringJSONSerializer.m in Sources */,
 				48233A211A5ED96500F35E44 /* CJSONSerializedData.m in Sources */,
@@ -1575,7 +1648,6 @@
 				48233A231A5ED96500F35E44 /* NSDictionary_JSONExtensions.m in Sources */,
 				48233A281A5ED96500F35E44 /* mztools.c in Sources */,
 				48233A291A5ED96500F35E44 /* unzip.c in Sources */,
-				48347FAE1A627E6F00784EF0 /* MyPayMent.m in Sources */,
 				480FAC8E1A54358500C41BDA /* JSONKit.m in Sources */,
 				48233A1F1A5ED96500F35E44 /* CJSONDeserializer_BlocksExtensions.m in Sources */,
 				48233A271A5ED96500F35E44 /* ioapi.c in Sources */,

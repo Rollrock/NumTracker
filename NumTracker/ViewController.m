@@ -50,7 +50,6 @@ typedef enum
     
     GADBannerView * _bannerView;
     
-
     int ROW_NUM;
     int COLUMN_NUM;
     
@@ -161,6 +160,14 @@ typedef enum
             _passView.frame = CGRectMake(0, 0, screen_width, 610);
         }
         
+        
+        if(_advBuy)
+        {
+            _passView.frame = CGRectMake(0, 0, screen_width, 200);
+            _passView.center = self.view.center;
+        }
+        
+        
         [self.view bringSubviewToFront:_passView];
         
     }];
@@ -173,51 +180,68 @@ typedef enum
     CGRect nextBtnRect;
     CGRect againBtnRect;
     
-    if( _iphoneType == IPHONE_4 )
+    if(_advBuy)
     {
-        _baduViewYPos = 40;
-        againBtnRect= CGRectMake(30, 310, 100, 40);
-        nextBtnRect= CGRectMake(190, 310, 100, 40);
+        _passView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 0, 0)];
+        _passView.backgroundColor = [UIColor grayColor];
+        _passView.layer.cornerRadius = 8;
+        _passView.layer.masksToBounds = YES;
+        _passView.center = self.view.center;
+        [self.view addSubview:_passView];
         
+        
+        againBtnRect= CGRectMake(40, 50, 100, 100);
+        nextBtnRect= CGRectMake(200, 50, 100, 100);
     }
-    else if( _iphoneType == IPHONE_5 )
+    else
     {
-        _baduViewYPos = 40;
-        againBtnRect= CGRectMake(30, 330, 100, 40);
-        nextBtnRect= CGRectMake(190, 330, 100, 40);
-
+        
+        if( _iphoneType == IPHONE_4 )
+        {
+            _baduViewYPos = 20;
+            againBtnRect= CGRectMake(40, 280, 80, 80);
+            nextBtnRect= CGRectMake(200, 280, 80, 80);
+            
+        }
+        else if( _iphoneType == IPHONE_5 )
+        {
+            _baduViewYPos = 40;
+            againBtnRect= CGRectMake(30, 330, 100, 40);
+            nextBtnRect= CGRectMake(190, 330, 100, 40);
+            
+        }
+        
+        _passView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 0, 0)];
+        _passView.backgroundColor = [UIColor grayColor];
+        _passView.layer.cornerRadius = 8;
+        _passView.layer.masksToBounds = YES;
+        _passView.center = self.view.center;
+        [self.view addSubview:_passView];
+        
+        //
+        _baiduView = [[BaiduMobAdView alloc]init];
+        _baiduView.AdType = BaiduMobAdViewTypeBanner;
+        _baiduView.frame = CGRectMake(0, _baduViewYPos, kBaiduAdViewSquareBanner300x250.width, kBaiduAdViewSquareBanner300x250.height);
+        
+        if( _iphoneType == IPHONE_6P )
+        {
+            _baiduView.frame = CGRectMake(0, _baduViewYPos, kBaiduAdViewSquareBanner600x500.width, kBaiduAdViewSquareBanner600x500.height);
+        }
+        _baiduView.center = CGPointMake(screen_width/2, _baiduView.center.y);
+        _baiduView.delegate = self;
+        [_passView addSubview:_baiduView];
+        [_baiduView start];
     }
     
-    
-    _passView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 0, 0)];
-    _passView.backgroundColor = [UIColor grayColor];
-    _passView.layer.cornerRadius = 8;
-    _passView.layer.masksToBounds = YES;
-    _passView.center = self.view.center;
-    [self.view addSubview:_passView];
-    
-    //
-     _baiduView = [[BaiduMobAdView alloc]init];
-     _baiduView.AdType = BaiduMobAdViewTypeBanner;
-     _baiduView.frame = CGRectMake(0, _baduViewYPos, kBaiduAdViewSquareBanner300x250.width, kBaiduAdViewSquareBanner300x250.height);
-    
-    if( _iphoneType == IPHONE_6P )
-    {
-        _baiduView.frame = CGRectMake(0, _baduViewYPos, kBaiduAdViewSquareBanner600x500.width, kBaiduAdViewSquareBanner600x500.height);
-    }
-     _baiduView.center = CGPointMake(screen_width/2, _baiduView.center.y);
-     _baiduView.delegate = self;
-     [_passView addSubview:_baiduView];
-     [_baiduView start];
     
     //
     UIButton * nextBtn = [[UIButton alloc]initWithFrame:nextBtnRect];
-    [nextBtn setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    [nextBtn setBackgroundImage:[UIImage imageNamed:@"next"] forState:UIControlStateNormal];
     [nextBtn addTarget:self action:@selector(nextClicked) forControlEvents:UIControlEventTouchUpInside];
     [_passView addSubview:nextBtn];
     
     UIButton * againBtn = [[UIButton alloc]initWithFrame:againBtnRect];
-    [againBtn setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    [againBtn setBackgroundImage:[UIImage imageNamed:@"refresh"] forState:UIControlStateNormal];
     [againBtn addTarget:self action:@selector(againClicked) forControlEvents:UIControlEventTouchUpInside];
     [_passView addSubview:againBtn];
     
@@ -877,7 +901,6 @@ typedef enum
                     [_InfoArray replaceObjectAtIndex:moveTag-COLUMN_NUM withObject:downInfo];
                     
                 }
-
             }
         }
     }
@@ -952,10 +975,6 @@ typedef enum
 //底部广告
 -(void)laytouADVView
 {
-    if( _advBuy )
-    {
-        return;
-    }
     
     CGRect rect = [[UIScreen mainScreen]bounds];
     CGPoint pt ;
