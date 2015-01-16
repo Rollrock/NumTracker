@@ -206,8 +206,8 @@ typedef enum
         else if( _iphoneType == IPHONE_5 )
         {
             _baduViewYPos = 40;
-            againBtnRect= CGRectMake(30, 330, 100, 40);
-            nextBtnRect= CGRectMake(190, 330, 100, 40);
+            againBtnRect= CGRectMake(40, 330, 100, 100);
+            nextBtnRect= CGRectMake(190, 330, 100, 100);
             
         }
         
