@@ -208,7 +208,12 @@ typedef enum
             _baduViewYPos = 40;
             againBtnRect= CGRectMake(40, 330, 100, 100);
             nextBtnRect= CGRectMake(190, 330, 100, 100);
-            
+        }
+        else if( _iphoneType == IPHONE_6 )
+        {
+            _baduViewYPos = 40*(375.0/320);
+            againBtnRect= CGRectMake(40*(375.0/320), 330, 100*(375.0/320), 100*(375.0/320));
+            nextBtnRect= CGRectMake(190*(375.0/320), 330, 100*(375.0/320), 100*(375.0/320));
         }
         
         _passView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 0, 0)];
@@ -359,8 +364,6 @@ typedef enum
         }
     }
 
-        
-    
     //
     
     for( int i = 0; i < ROW_NUM; ++ i)
