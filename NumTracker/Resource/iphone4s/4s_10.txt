@@ -100,7 +100,7 @@
         },
         {
             "value": "0",
-            "repeatCount": "1",
+            "repeatCount": "2",
             "repeatNum": "2"
         },
         {

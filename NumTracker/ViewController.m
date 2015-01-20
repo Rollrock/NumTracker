@@ -419,7 +419,6 @@ typedef enum
         
         while([animArray count] )
         {
-            
             [NSThread sleepForTimeInterval:0.2];
             
             int index = arc4random() % ([animArray count]);
@@ -436,16 +435,18 @@ typedef enum
                     
                     view.hidden = NO;
                     CGPoint center = view.center;
-                    view.frame = CGRectMake(0, 0, IMG_WIDTH+10, IMG_WIDTH+10);
-                    view.center = center;
+                    //view.frame = CGRectMake(0, 0, IMG_WIDTH+10, IMG_WIDTH+10);
+                    //view.center = center;
+                    
+                    view.frame = CGRectMake(view.frame.origin.x-5, view.frame.origin.y-5, IMG_WIDTH+10, IMG_WIDTH+10);
                     
                 }completion:^(BOOL finish){
                     
                     [UIView animateWithDuration:0.2 animations:^(void){
                         
                         CGPoint center = view.center;
-                        view.frame = CGRectMake(0, 0, IMG_WIDTH, IMG_WIDTH);
-                        view.center = center;
+                        view.frame = CGRectMake(view.frame.origin.x+5, view.frame.origin.y+5, IMG_WIDTH, IMG_WIDTH);
+                        //view.center = center;
                     }];
                 }];
             });

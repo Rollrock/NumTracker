@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "ViewController.h"
 
 @interface AppDelegate ()
 
@@ -19,6 +20,15 @@
     // Override point for customization after application launch.
     //
     [WXApi registerApp:@"wx8ae0a52d0b488e34"];
+    
+    //
+    ViewController * vc = [[ViewController alloc]init];
+    
+    self.window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.rootViewController = vc;
+    
+    [self.window makeKeyAndVisible];
+    
     
     return YES;
 }
