@@ -183,7 +183,7 @@ typedef enum
     if(_advBuy)
     {
         _passView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 0, 0)];
-        _passView.backgroundColor = [UIColor grayColor];
+        _passView.backgroundColor = [UIColor whiteColor];
         _passView.layer.cornerRadius = 8;
         _passView.layer.masksToBounds = YES;
         _passView.center = self.view.center;
@@ -217,7 +217,7 @@ typedef enum
         }
         
         _passView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 0, 0)];
-        _passView.backgroundColor = [UIColor grayColor];
+        _passView.backgroundColor = [UIColor whiteColor];
         _passView.layer.cornerRadius = 8;
         _passView.layer.masksToBounds = YES;
         _passView.center = self.view.center;
@@ -534,7 +534,8 @@ typedef enum
         rect = CGRectMake(xPox+220, 20, 90, 40);
         UIButton * btn = [[UIButton alloc]initWithFrame:rect];
         btn.tag = 2;
-        [btn setTitle:NSLocalizedString(@"playAgain", nil) forState:UIControlStateNormal];
+        //[btn setTitle:NSLocalizedString(@"playAgain", nil) forState:UIControlStateNormal];
+        [btn setTitle:@"关卡选择" forState:UIControlStateNormal];
         btn.layer.cornerRadius = 5;
         btn.backgroundColor = [UIColor lightGrayColor];
         btn.layer.masksToBounds = YES;

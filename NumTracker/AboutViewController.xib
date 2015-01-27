@@ -42,7 +42,7 @@
                             <constraints>
                                 <constraint firstAttribute="width" constant="120" id="N6J-DJ-Asf"/>
                             </constraints>
-                            <state key="normal" title="去除广告">
+                            <state key="normal" title="去除中间广告">
                                 <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
@@ -84,7 +84,7 @@
                         <constraint firstItem="JXT-Xr-lLo" firstAttribute="top" secondItem="5O8-bW-1ab" secondAttribute="bottom" constant="10" id="u5m-kk-6UO"/>
                     </constraints>
                 </view>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1024_1024.png" translatesAutoresizingMaskIntoConstraints="NO" id="4pl-Jk-xhf">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="120.png" translatesAutoresizingMaskIntoConstraints="NO" id="4pl-Jk-xhf">
                     <rect key="frame" x="230" y="90" width="140" height="140"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="140" id="iJN-yd-6RM"/>
@@ -124,7 +124,7 @@
         </view>
     </objects>
     <resources>
-        <image name="1024_1024.png" width="1024" height="1024"/>
+        <image name="120.png" width="120" height="120"/>
         <image name="back.png" width="128" height="128"/>
     </resources>
 </document>

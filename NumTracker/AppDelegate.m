@@ -109,7 +109,7 @@
     [message setThumbImage:[UIImage imageNamed:@"res2.png"]];
     
     WXWebpageObject *ext = [WXWebpageObject object];
-    ext.webpageUrl = @"https://itunes.apple.com/cn/app/shang-hai-lu-you-gong-e-zhi/id804556227?mt=8";
+    ext.webpageUrl = @"https://itunes.apple.com/cn/app/shang-hai-lu-you-gong-e-zhi/id957183679?mt=8";
     
     message.mediaObject = ext;
     
